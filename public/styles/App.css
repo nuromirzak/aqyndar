@@ -1,0 +1,12 @@
+.custom-green {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.card-title {
+    color: #ff5353 !important;
+}
+
+* {
+    font-family: 'Ubuntu', sans-serif;
+}

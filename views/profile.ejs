@@ -1,0 +1,34 @@
+<% layout("layouts/boilerplate") %>
+<div class="col-sm-8 offset-sm-4 bg-light rounded shadow-lg p-3">
+    <p class="display-5">Пайдаланушы: <%= user.username %></p>
+
+    <p><strong>Құпиясөз:</strong> <%= user.password %></p>
+
+    <hr>
+
+    <p><strong>Email:</strong> <%= user.email %></p>
+
+    <hr>
+
+    <p><strong>Роль:</strong> <%= user.role %></p>
+
+    <hr>
+
+    <p><strong>IQ ұпайы:</strong> <%= user.iqNumber %></p>
+
+    <hr>
+
+    <p><strong>Құрылған уақыты:</strong> <%= user.registrationDate %></p>
+
+    <hr>
+
+    <p><strong>Пайдаланушы аннотациялары:</strong></p>
+
+    <ul class="list-group">
+        <% for (let i = 0; i < annotations.length; i++) { %>
+
+            <li class="list-group-item"><%= annotations[i] %></li>
+
+        <% } %>
+    </ul>
+</div>

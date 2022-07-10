@@ -1,0 +1,55 @@
+<% layout("layouts/boilerplate") %>
+<div class="row col-sm-10 offset-sm-2">
+
+    <% for (let i = 0; i < poems.length; i++) { %>
+        <div class="col-md-6">
+
+            <p class="display-3" onclick="location.href='/poems/<%= poems[i]._id %>';"
+               style="cursor: pointer;"><%= poems[i].title %>
+                <a class="btn btn-primary" href="/annotations/new?poem_id=<%= poems[i].id %>" role="button">Аннотация
+                    қосу</a>
+                <% if (poems[i].canEdit) { %>
+                    <a class="btn btn-danger" href="/poems/delete?id=<%= poems[i].id %>" role="button">Жою</a>
+                    <a class="btn btn-secondary" href="/poems/new?id=<%= poems[i].id %>" role="button">Өзгерту</a>
+                <% } %>
+            </p>
+
+            <p class="display-6"><%= poems[i].authorName %></p>
+
+            <% for (let j = 0; j < poems[i].array.length; j++) { %>
+                <% if (poems[i].array[j].trim().length === 0) { %>
+                    <br>
+                <% } else { %>
+                    <% if (poems[i].annotations[j] === "Бүл жолға әлі аннотация жоқ") { %>
+                        <p data-bs-toggle="modal"
+                           data-bs-target="#exampleModal<%= i %><%= j %>"><%= poems[i].array[j] %></p>
+                    <% } else { %>
+                        <p data-bs-toggle="modal" data-bs-target="#exampleModal<%= i %><%= j %>">
+                            <span class="custom-green"><%= poems[i].array[j] %></span>
+                        </p>
+                    <% } %>
+                    <div class="modal fade" id="exampleModal<%= i %><%= j %>" tabindex="-1"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Бұл аннотация</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body"><%= poems[i].annotations[j] %></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Жабу
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            <% } %>
+
+        </div>
+    <% } %>
+
+</div>

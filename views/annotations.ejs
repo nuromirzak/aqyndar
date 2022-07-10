@@ -1,0 +1,27 @@
+<% layout("layouts/boilerplate") %>
+<div class="col-sm-6 offset-sm-4">
+    <p class="display-3">Бүкіл аннотациялар</p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Poem title</th>
+            <th scope="col">Line number</th>
+            <th scope="col">Annotation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (let i = 0; i < annotations.length; i++) { %>
+
+            <tr>
+                <th scope="row"><%= i + 1 %></th>
+                <td><%= annotations[i].poemName %></td>
+                <td><%= annotations[i].line_number %></td>
+                <td><%= annotations[i].content %></td>
+            </tr>
+
+        <% } %>
+        </tbody>
+    </table>
+</div>

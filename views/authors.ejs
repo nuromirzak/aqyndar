@@ -1,0 +1,17 @@
+<% layout("layouts/boilerplate") %>
+<div class="col-sm-6 offset-sm-4">
+    <p class="display-3">Бүкіл авторлар</p>
+
+    <ul class="list-group">
+        <% for (let i = 0; i < authors.length; i++) { %>
+
+            <li class="list-group-item display-6"><%= authors[i].fullname %>
+                <% if (authors[i].canEdit) { %>
+                    <a class="btn btn-danger" href="/authors/delete?id=<%= authors[i].id %>" role="button">Delete</a>
+                    <a class="btn btn-secondary" href="/authors/new?id=<%= authors[i].id %>" role="button">Edit</a>
+                <% } %>
+            </li>
+
+        <% } %>
+    </ul>
+</div>

@@ -1,0 +1,78 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="/static/icons/android-chrome-192x192.png" alt="" width="30" height="24"
+                 class="d-inline-block align-text-top">
+            Zerdeleu
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="poemsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Poems
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu" aria-labelledby="poemsDropdown">
+                        <li><a class="dropdown-item" href=/poems>See all poems</a></li>
+                        <li><a class="dropdown-item" href="/poems/new">Add a new poem</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="authorsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Authors
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu" aria-labelledby="authorsDropdown">
+                        <li><a class="dropdown-item" href=/authors>See all authors</a></li>
+                        <li><a class="dropdown-item" href="/authors/new">Add a new author</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="annotationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Annotations
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu" aria-labelledby="annotationsDropdown">
+                        <li><a class="dropdown-item" href=/annotations>See all annotations</a></li>
+                        <li><a class="dropdown-item" href="/annotations/new">Add a new annotation</a></li>
+                    </ul>
+                </li>
+
+                <% if (isLogged) { %>
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path fill-rule="evenodd"
+                                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                            </svg>
+                            My Profile
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="/profile">My Profile</a></li>
+                            <li><a class="dropdown-item" href="/sign_out">Log out</a></li>
+                        </ul>
+                    </li>
+                <% } else { %>
+                    <li class="nav-item me-lg-1 mb-1 mb-lg-0">
+                        <a class="btn btn-primary" href="/sign_in">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="/sign_up">Sign up</a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
