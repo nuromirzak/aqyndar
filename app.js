@@ -16,6 +16,7 @@ const poemRouter = require("./routers/poemRouter");
 const remainControllers = require("./controllers/remainControllers");
 const signOutController = require("./controllers/signOutController");
 const annotationRouter = require("./routers/annotationRouter");
+const helpers = require("./helpers");
 
 app.use("/static", express.static(__dirname + "/public"));
 
@@ -45,9 +46,9 @@ app.use(session({
 
 app.get("/", remainControllers.displayMainPage);
 
-app.get("/profile", remainControllers.displayProfile);
+app.get("/profile", helpers.isAuth, remainControllers.displayProfile);
 
-app.get("/sign_out", signOutController.signOut);
+app.get("/sign_out", helpers.isAuth, signOutController.signOut);
 
 app.use("/sign_up", signUpRouter);
 

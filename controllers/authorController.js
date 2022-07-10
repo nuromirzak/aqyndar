@@ -9,7 +9,7 @@ const displayAllAuthors = async (req, res) => {
 
     for (let author of authors) {
         if (req.session.user) {
-            author.canEdit = helpers.compareObjectIds(author.user_id, req.session.user._id);
+            author.canEdit = helpers.canDelete(author.user_id, req.session.user._id);
         }
     }
 
@@ -21,11 +21,6 @@ const displayAllAuthors = async (req, res) => {
 };
 
 const displayAddAuthorForm = async (req, res) => {
-    if (!req.session.user) {
-        res.redirect("/sign_in");
-        return;
-    }
-
     const id = req.query.id;
 
     const author = await Author.findById(id);
@@ -39,11 +34,6 @@ const displayAddAuthorForm = async (req, res) => {
 };
 
 const addAuthor = async (req, res) => {
-    if (!req.session.user) {
-        res.redirect("/sign_in");
-        return;
-    }
-
     const {fullname} = req.body;
 
     if (!fullname) {
@@ -58,7 +48,7 @@ const addAuthor = async (req, res) => {
     }
 
     if (authorToUpdate) {
-        if (!helpers.compareObjectIds(authorToUpdate.user_id, req.session.user._id)) {
+        if (!helpers.canDelete(authorToUpdate.user_id, req.session.user._id)) {
             res.send("You can't update this author");
             return;
         }
@@ -78,11 +68,6 @@ const addAuthor = async (req, res) => {
 };
 
 const deleteAuthor = async (req, res) => {
-    if (!req.session.user) {
-        res.send("You must be logged in to delete a poem");
-        return;
-    }
-
     const {id} = req.query;
 
     if (!id) {
@@ -97,7 +82,7 @@ const deleteAuthor = async (req, res) => {
         return;
     }
 
-    if (!helpers.compareObjectIds(author.user_id, req.session.user._id)) {
+    if (!helpers.canDelete(author.user_id, req.session.user._id)) {
         res.send("You can't delete this author");
         return;
     }

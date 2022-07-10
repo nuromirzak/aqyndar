@@ -2,16 +2,14 @@ const User = require("../models/user");
 const Annotation = require("../models/annotation");
 
 const displayProfile = async (req, res) => {
-    if (!req.session.user) {
-        res.redirect("/sign_in");
-        return;
-    }
-
     let annotations = [];
 
     for (let i = 0; i < req.session.user.annotations.length; i++) {
         let annotation = await Annotation.findById(req.session.user.annotations[i]);
-        annotations.push(annotation.content);
+
+        // TODO: Implement deleting annotation from session
+        if (annotation)
+            annotations.push(annotation.content);
     }
 
     res.render("profile", {

@@ -18,11 +18,6 @@ const displayAllAnnotations = async (req, res) => {
 };
 
 const displayAddAnnotation = async (req, res) => {
-    if (!req.session.user) {
-        res.send("You must be logged in to add an annotation");
-        return;
-    }
-
     const id = req.query.poem_id;
 
     const poem = await Poem.findById(id);
@@ -42,11 +37,6 @@ const displayAddAnnotation = async (req, res) => {
 };
 
 const addAnnotation = async (req, res) => {
-    if (!req.session.user) {
-        res.send("You must be logged in to add an annotation");
-        return;
-    }
-
     const {poem_id, line_number, annotation} = req.body;
 
     if (!(poem_id && line_number && annotation)) {

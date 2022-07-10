@@ -44,7 +44,11 @@ const displayAllPoems = async (req, res) => {
 const displayPoem = async (req, res) => {
     const {id} = req.params;
 
-    const poem = await Poem.findById(id);
+    let poem;
+
+    if (mongoose.isValidObjectId(id)) {
+        poem = await Poem.findById(id);
+    }
 
     if (!poem) {
         res.send("Poem not found");
@@ -71,7 +75,7 @@ const displayPoem = async (req, res) => {
     poem.authorName = author.fullname;
 
     if (req.session.user) {
-        poem.canEdit = helpers.compareObjectIds(poem.user_id, req.session.user._id);
+        poem.canEdit = helpers.canDelete(poem.user_id, req.session.user._id);
     }
 
     res.render("poems", {
@@ -82,11 +86,6 @@ const displayPoem = async (req, res) => {
 }
 
 const displayAddPoem = async (req, res) => {
-    if (!req.session.user) {
-        res.send("You must be logged in to add an annotation");
-        return;
-    }
-
     const id = req.query.id;
 
     const poem = await Poem.findById(id);
@@ -104,11 +103,6 @@ const displayAddPoem = async (req, res) => {
 };
 
 const savePoem = async (req, res) => {
-    if (!req.session.user) {
-        res.send("You must be logged in to add an annotation");
-        return;
-    }
-
     const {id, title, poem, author} = req.body;
 
     if (!(title && poem && author)) {
@@ -123,7 +117,7 @@ const savePoem = async (req, res) => {
     }
 
     if (poemToUpdate) {
-        if (!helpers.compareObjectIds(poemToUpdate.user_id, req.session.user._id)) {
+        if (!helpers.canDelete(poemToUpdate.user_id, req.session.user._id)) {
             res.send("You can't update this poem");
             return;
         }
@@ -148,11 +142,6 @@ const savePoem = async (req, res) => {
 };
 
 const deletePoem = async (req, res) => {
-    if (!req.session.user) {
-        res.send("You must be logged in to delete a poem");
-        return;
-    }
-
     const {id} = req.query;
 
     if (!id) {
@@ -167,7 +156,7 @@ const deletePoem = async (req, res) => {
         return;
     }
 
-    if (!helpers.compareObjectIds(poem.user_id, req.session.user._id)) {
+    if (!helpers.canDelete(poem.user_id, req.session.user._id)) {
         res.send("You can't delete this poem");
         return;
     }
@@ -176,12 +165,6 @@ const deletePoem = async (req, res) => {
 
     for (let annotation of annotations) {
         await Annotation.deleteOne({_id: annotation._id});
-    }
-
-    for (let annotation of req.session.user.annotations) {
-        if (helpers.compareObjectIds(annotation, poem._id)) {
-            req.session.user.annotations.splice(req.session.user.annotations.indexOf(annotation), 1);
-        }
     }
 
     await Poem.deleteOne({_id: poem._id});
