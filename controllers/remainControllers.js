@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Annotation = require("../models/annotation");
+const {defaultProfilePicture} = require("../config");
 
 const displayProfile = async (req, res) => {
     console.log(req.session.user);
@@ -14,10 +15,17 @@ const displayProfile = async (req, res) => {
             annotations.push(annotation.content);
     }
 
+    let url = defaultProfilePicture.url;
+
+    if (req.session.user.profilePicture?.url) {
+        url = req.session.user.profilePicture.url;
+    }
+
     res.render("profile", {
         title: "Profile",
         user: req.session.user,
         isLogged: Boolean(req.session.user),
+        url,
         annotations,
     });
 };
