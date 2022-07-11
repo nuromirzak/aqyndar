@@ -1,6 +1,6 @@
 <% layout("layouts/boilerplate") %>
 <div class="col-sm-6 offset-sm-4">
-    <form action="/sign_up" method="post">
+    <form action="/sign_up" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <p class="display-3">Registration Form</p>
         </div>
@@ -13,6 +13,11 @@
         <div class="form-group mb-3">
             <label for="password">Password</label>
             <input type="text" class="form-control" id="password" name="password" placeholder="Password" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="profilepic">Your profile picture</label>
+            <input id="profilepic" class="form-control" type="file" name="profilepic"/>
         </div>
 
         <div class="form-group mb-3">

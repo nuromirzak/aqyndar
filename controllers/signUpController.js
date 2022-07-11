@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const {defaultProfilePicture} = require("../config");
 
 const displaySignUp = (req, res) => {
     if (req.session.user) {
@@ -20,6 +21,19 @@ const signUp = (req, res) => {
         return;
     }
 
+    const file = req.file;
+
+    let profilePicture;
+
+    if (file) {
+        profilePicture = {
+            url: file.path,
+            filename: file.filename,
+        };
+    } else {
+        profilePicture = defaultProfilePicture;
+    }
+
     const user = new User({
         username,
         password,
@@ -28,6 +42,7 @@ const signUp = (req, res) => {
         iqNumber: 0,
         registrationDate: Date.now(),
         annotations: [],
+        profilePicture,
     });
 
     user.save()

@@ -2,6 +2,8 @@ const User = require("../models/user");
 const Annotation = require("../models/annotation");
 
 const displayProfile = async (req, res) => {
+    console.log(req.session.user);
+
     let annotations = [];
 
     for (let i = 0; i < req.session.user.annotations.length; i++) {

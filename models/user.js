@@ -4,6 +4,10 @@ const ObjectId = Schema.ObjectId;
 
 const userSchema = new Schema({
     username: String,
+    profilePicture: {
+      url: String,
+      filename: String
+    },
     password: String,
     email: String,
     role: {

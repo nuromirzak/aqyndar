@@ -1,5 +1,10 @@
 <% layout("layouts/boilerplate") %>
 <div class="col-sm-8 offset-sm-4 bg-light rounded shadow-lg p-3">
+    <div>
+        <img src="<%= user.profilePicture.url %>" alt="" class="img-thumbnail rounded-circle"
+             style="width: 240px; height: 240px; object-fit: cover;">
+    </div>
+
     <p class="display-5">Пайдаланушы: <%= user.username %></p>
 
     <p><strong>Құпиясөз:</strong> <%= user.password %></p>
