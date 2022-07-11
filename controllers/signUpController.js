@@ -21,11 +21,18 @@ const signUp = (req, res) => {
         return;
     }
 
+    // TODO: Implement if user didn't upload correct file
+    const whitelist = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+    ];
+
     const file = req.file;
 
     let profilePicture;
 
-    if (file) {
+    if (file && whitelist.includes(file.mimetype)) {
         profilePicture = {
             url: file.path,
             filename: file.filename,
