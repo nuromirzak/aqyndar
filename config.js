@@ -6,8 +6,6 @@ const mongoURI = process.env.MONGO_DB;
 
 const secretString = "apple_orange_lemon";
 
-const {storage} = require("./cloudinary_config");
-
 const defaultProfilePicture = {
     url: "https://res.cloudinary.com/de7j5tens/image/upload/v1657535099/zerdeleu-images/893_ybnxhy.png",
     filename: "zerdeleu-images/893_ybnxhy.png",
@@ -16,6 +14,5 @@ const defaultProfilePicture = {
 module.exports = {
     mongoURI,
     secretString,
-    storage,
     defaultProfilePicture,
 }
