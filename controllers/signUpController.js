@@ -1,19 +1,23 @@
+const bcrypt = require('bcrypt');
 const User = require("../models/user");
-const {defaultProfilePicture} = require("../config");
+const config = require("../config");
 
+// Controller that displays the sign-up page
 const displaySignUp = (req, res) => {
-    if (req.session.user) {
+    // If user is already logged in, redirect to profile page
+    if (req.session.user_id) {
         res.redirect("/profile");
         return;
     }
 
-    res.render('sign_up', {
+    res.render('auth/sign_up', {
         title: 'Sign Up',
-        isLogged: Boolean(req.session.user),
+        isLogged: Boolean(req.session.user_id),
     });
 };
 
-const signUp = (req, res) => {
+// Controller that handles the sign-up process
+const signUp = async (req, res) => {
     const {username, password, email, role} = req.body;
 
     if (!(username && password && email && role)) {
@@ -28,33 +32,39 @@ const signUp = (req, res) => {
         'image/jpg',
     ];
 
+    // Get a file from multer middleware
     const file = req.file;
 
     let profilePicture;
 
+    // If uploaded image is valid, set profilePicture to the url of the image
     if (file && whitelist.includes(file.mimetype)) {
         profilePicture = {
             url: file.path,
             filename: file.filename,
         };
     } else {
-        profilePicture = defaultProfilePicture;
+        // If user didn't upload file, use default profile picture
+        profilePicture = config.defaultProfilePicture;
     }
 
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, config.saltRounds);
+
+    // Create a new user
     const user = new User({
-        username,
-        password,
-        email,
-        role,
+        username: username,
+        password: hashedPassword,
+        profilePicture: profilePicture,
+        email: email,
+        role: role,
         iqNumber: 0,
         registrationDate: Date.now(),
-        annotations: [],
-        profilePicture,
     });
 
     user.save()
         .then((result) => {
-            console.log(result);
+            console.log('User created successfully');
             res.redirect("/sign_in");
         }).catch((err) => {
             console.log(err);

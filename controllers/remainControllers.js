@@ -1,39 +1,28 @@
 const User = require("../models/user");
 const Annotation = require("../models/annotation");
-const {defaultProfilePicture} = require("../config");
 
+// Controller that displays the profile page
 const displayProfile = async (req, res) => {
-    console.log(req.session.user);
+    // Find all annotations of the user
+    const annotations = await Annotation.find({ user_id: req.session.user_id });
 
-    let annotations = [];
+    const user = await User.findById(req.session.user_id);
 
-    for (let i = 0; i < req.session.user.annotations.length; i++) {
-        let annotation = await Annotation.findById(req.session.user.annotations[i]);
-
-        // TODO: Implement deleting annotation from session
-        if (annotation)
-            annotations.push(annotation.content);
-    }
-
-    let url = defaultProfilePicture.url;
-
-    if (req.session.user.profilePicture?.url) {
-        url = req.session.user.profilePicture.url;
-    }
-
-    res.render("profile", {
+    // Render the profile page
+    res.render("auth/profile", {
         title: "Profile",
-        user: req.session.user,
-        isLogged: Boolean(req.session.user),
-        url,
-        annotations,
+        isLogged: Boolean(req.session.user_id),
+        user: user,
+        annotations: annotations,
     });
 };
 
+// Controller that displays the main page
 const displayMainPage = (req, res) => {
+    // Render the main page
     res.render("home", {
         title: "Home",
-        isLogged: Boolean(req.session.user),
+        isLogged: Boolean(req.session.user_id),
     });
 };
 

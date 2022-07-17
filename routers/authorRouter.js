@@ -6,7 +6,8 @@ const helpers = require("../helpers");
 router.get('/', authorController.displayAllAuthors);
 
 router.get('/new', helpers.isAuth, authorController.displayAddAuthorForm);
-router.post('/new', helpers.isAuth, authorController.addAuthor);
+router.get('/edit', helpers.isAuth, authorController.displayEditAuthorForm);
+router.post('/new', helpers.isAuth, authorController.saveAuthor);
 
 router.get('/delete', helpers.isAuth, authorController.deleteAuthor);
 

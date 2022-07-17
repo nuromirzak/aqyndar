@@ -1,0 +1,16 @@
+<% layout("layouts/boilerplate") %>
+<form action="/authors/new" method="post" class="col-sm-6 offset-sm-4">
+    <p class="display-5">Бар авторды өңдеу</p>
+
+    <input name="id" type="hidden" value="<%= author._id %>">
+
+    <div class="form-group mb-3 row">
+        <label for="fullname" class="col-sm-3 col-form-label">Author fullname</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Author fullname"
+                   value="<%= author.fullname %>" required>
+        </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>

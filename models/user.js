@@ -4,11 +4,11 @@ const ObjectId = Schema.ObjectId;
 
 const userSchema = new Schema({
     username: String,
-    profilePicture: {
-      url: String,
-      filename: String
-    },
     password: String,
+    profilePicture: {
+        url: String,
+        filename: String
+    },
     email: String,
     role: {
         type: String,
@@ -16,10 +16,6 @@ const userSchema = new Schema({
     },
     iqNumber: Number,
     registrationDate: Date,
-    annotations: [{
-        type: ObjectId,
-        ref: "Annotation",
-    }],
 });
 
 const User = mongoose.model("User", userSchema);

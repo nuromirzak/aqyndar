@@ -1,7 +1,4 @@
-const multer = require("multer");
-const dotenv = require('dotenv');
-dotenv.config();
-
+const MongoStore = require("connect-mongo");
 const mongoURI = process.env.MONGO_DB;
 
 const secretString = "apple_orange_lemon";
@@ -11,8 +8,24 @@ const defaultProfilePicture = {
     filename: "zerdeleu-images/893_ybnxhy.png",
 };
 
+const saltRounds = 10;
+
+const sessionConfig = {
+    secret: secretString,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 14 // 2 week
+    },
+    store: MongoStore.create({
+        mongoUrl: mongoURI
+    }),
+};
+
 module.exports = {
     mongoURI,
     secretString,
     defaultProfilePicture,
+    saltRounds,
+    sessionConfig,
 }

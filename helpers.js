@@ -5,7 +5,7 @@ const compareObjectIds = (id1, id2) => {
 }
 
 const isAuth = (req, res, next) => {
-    if (!req.session.user) {
+    if (!req.session.user_id) {
         res.redirect("/sign_in");
         return;
     }
@@ -13,12 +13,12 @@ const isAuth = (req, res, next) => {
     next();
 };
 
-const canDelete = (itemId, userId) => {
+const hasAccess = (itemId, userId) => {
     return compareObjectIds(itemId, userId);
 }
 
 module.exports = {
     compareObjectIds,
     isAuth,
-    canDelete
+    hasAccess
 }

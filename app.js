@@ -1,12 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const MongoStore = require('connect-mongo');
 const session = require('express-session');
 const ejsMate = require('ejs-mate');
-const multer  = require("multer");
+const dotenv = require('dotenv');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
+
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
 
 const config = require("./config");
 const signUpRouter = require("./routers/signUpRouter");
@@ -17,8 +20,6 @@ const remainControllers = require("./controllers/remainControllers");
 const signOutController = require("./controllers/signOutController");
 const annotationRouter = require("./routers/annotationRouter");
 const helpers = require("./helpers");
-
-const upload = multer({storage: config.storage});
 
 app.use("/static", express.static(__dirname + "/public"));
 
@@ -34,17 +35,7 @@ mongoose.connect(config.mongoURI, {useNewUrlParser: true, useUnifiedTopology: tr
     .then((result) => console.log(`Connected to MongoDB ${result.connection.host}`))
     .catch((err) => console.log(err));
 
-app.use(session({
-    secret: config.secretString,
-    resave: 'false',
-    saveUninitialized: 'false',
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 14 // 2 week
-    },
-    store: MongoStore.create({
-        mongoUrl: config.mongoURI
-    }),
-}));
+app.use(session(config.sessionConfig));
 
 app.get("/", remainControllers.displayMainPage);
 
