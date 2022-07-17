@@ -19,7 +19,7 @@
                 <td onclick="location.href='/poems/<%= poems[i]._id %>';"
                     style="cursor: pointer;"><%= poems[i].title %></td>
                 <td><%= poems[i].authorName %></td>
-                <td><%= 0 %></td>
+                <td><%= poems[i].likes %></td>
             </tr>
 
         <% } %>

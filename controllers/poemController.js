@@ -15,6 +15,18 @@ const displayAllPoems = async (req, res) => {
         let author = await Author.findById(poem.author_id);
         // Set author name
         poem.authorName = author.fullname;
+
+        let likes = 0;
+
+        const likedObject = poem.liked.toJSON();
+
+        for (let key in likedObject) {
+            if (likedObject[key]) {
+                likes++;
+            }
+        }
+
+        poem.likes = likes;
     }
 
     // Render all poems
@@ -24,6 +36,33 @@ const displayAllPoems = async (req, res) => {
         poems: poems,
     });
 };
+
+// Controller that handles liking a poem
+const likePoem = async (req, res) => {
+    const {id} = req.query;
+
+    let poem;
+
+    // Validate id
+    if (mongoose.isValidObjectId(id)) {
+        poem = await Poem.findById(id);
+    }
+
+    if (!poem) {
+        res.send("Poem not found");
+        return;
+    }
+
+    poem.liked.set(req.session.user_id, !poem.liked.get(req.session.user_id));
+
+    console.log("Like controller:");
+
+    console.log(poem.liked);
+
+    await poem.save();
+
+    res.redirect(`/poems/${id}`);
+}
 
 // Controller that displays a single poem
 const displayPoem = async (req, res) => {
@@ -41,6 +80,10 @@ const displayPoem = async (req, res) => {
         res.send("Poem not found");
         return;
     }
+
+    console.log("Poem controller:");
+
+    console.log(poem);
 
     // Find annotations which are related to this poem
     const annotations = await Annotation.find({poem_id: poem._id});
@@ -67,14 +110,17 @@ const displayPoem = async (req, res) => {
     poem.authorName = author.fullname;
 
     // Check if user can edit this poem
-    if (req.session.user) {
+    if (req.session.user_id) {
         poem.canEdit = helpers.hasAccess(poem.user_id, req.session.user_id);
     }
+
+    const liked = poem.liked.get(req.session.user_id);
 
     // Render poem
     res.render("poems/single_poem", {
         title: poem.title,
         poem: poem,
+        liked: liked,
         isLogged: Boolean(req.session.user_id),
     });
 }
@@ -167,6 +213,7 @@ const savePoem = async (req, res) => {
             user_id: req.session.user_id,
             title,
             poem,
+            liked: {},
         });
 
         // Save poem
@@ -224,4 +271,5 @@ module.exports = {
     displayEditPoem,
     savePoem,
     deletePoem,
+    likePoem,
 };

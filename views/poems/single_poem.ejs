@@ -11,6 +11,14 @@
                 <a class="btn btn-danger" href="/poems/delete?id=<%= poem.id %>" role="button">Жою</a>
                 <a class="btn btn-secondary" href="/poems/new?id=<%= poem.id %>" role="button">Өзгерту</a>
             <% } %>
+
+            <% if (isLogged) { %>
+                <% if (liked) { %>
+                    <a class="btn btn-danger" href="/poems/like?id=<%= poem.id %>" role="button">Unlike</a>
+                <% } else { %>
+                    <a class="btn btn-primary" href="/poems/like?id=<%= poem.id %>" role="button">Like</a>
+                <% } %>
+            <% } %>
         </p>
 
         <p class="display-6"><%= poem.authorName %></p>

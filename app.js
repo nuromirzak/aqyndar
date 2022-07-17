@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const session = require('express-session');
 const ejsMate = require('ejs-mate');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -37,6 +38,8 @@ mongoose.connect(config.mongoURI, {useNewUrlParser: true, useUnifiedTopology: tr
     .catch((err) => console.log(err));
 
 app.use(session(config.sessionConfig));
+
+app.use(morgan('dev'));
 
 app.get("/", remainControllers.displayMainPage);
 

@@ -7,6 +7,7 @@ const poemSchema = new Schema({
     user_id: ObjectId,
     poem: String,
     title: String,
+    liked: Map,
 });
 
 const Poem = mongoose.model("Poem", poemSchema);
