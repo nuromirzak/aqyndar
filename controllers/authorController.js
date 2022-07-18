@@ -3,6 +3,7 @@ const Poem = require("../models/poem");
 const helpers = require("../helpers");
 const Annotation = require("../models/annotation");
 const mongoose = require("mongoose");
+const config = require("../config");
 
 // Controller for displaying all authors
 const displayAllAuthors = async (req, res) => {
@@ -67,7 +68,7 @@ const displayEditAuthorForm = async (req, res) => {
 
 // Controller for adding/updating an author
 const saveAuthor = async (req, res) => {
-    const {id, fullname} = req.body;
+    const {id, fullname, biography} = req.body;
 
     // Check if required fields are present
     if (!fullname) {
@@ -82,6 +83,29 @@ const saveAuthor = async (req, res) => {
         authorToUpdate = await Author.findById(id);
     }
 
+    // TODO: Implement if user didn't upload correct file
+    const whitelist = [
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+    ];
+
+    // Get a file from multer middleware
+    const file = req.file;
+
+    let profilePicture;
+
+    // If uploaded image is valid, set profilePicture to the url of the image
+    if (file && whitelist.includes(file.mimetype)) {
+        profilePicture = {
+            url: file.path,
+            filename: file.filename,
+        };
+    } else {
+        // If user didn't upload file, use default profile picture
+        profilePicture = config.defaultAuthorProfilePicture;
+    }
+
     // If the author is found, update it
     // else, create a new author
     if (authorToUpdate) {
@@ -92,12 +116,20 @@ const saveAuthor = async (req, res) => {
         }
 
         authorToUpdate.fullname = fullname;
+
+        if (profilePicture) {
+            authorToUpdate.profilePicture = profilePicture;
+        }
+        authorToUpdate.biography = biography;
+
         await authorToUpdate.save();
     } else {
         // Create a new author
         const author = new Author({
             fullname,
             user_id: req.session.user_id,
+            profilePicture,
+            biography,
         });
 
         await author.save();
@@ -155,10 +187,39 @@ const deleteAuthor = async (req, res) => {
     res.redirect("/authors");
 };
 
+// Controller for displaying a specific author
+const displayAuthor = async (req, res) => {
+    // Get the author id from the query
+    const {id} = req.params;
+
+    // Check if the id is present
+    if (!id) {
+        res.status(400).send("Missing required fields");
+        return;
+    }
+
+    // Find the author
+    const author = await Author.findById(id);
+
+    // Check if the author is found
+    if (!author) {
+        res.send("Author not found");
+        return;
+    }
+
+    // Render the author page
+    res.render("authors/single_author", {
+        title: author.fullname,
+        isLogged: Boolean(req.session.user_id),
+        author,
+    });
+};
+
 module.exports = {
     displayAllAuthors,
     displayAddAuthorForm,
     displayEditAuthorForm,
     saveAuthor,
     deleteAuthor,
+    displayAuthor,
 }

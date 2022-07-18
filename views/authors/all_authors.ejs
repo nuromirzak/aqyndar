@@ -6,7 +6,8 @@
         <ul class="list-group">
             <% for (let i = 0; i < authors.length; i++) { %>
 
-                <li class="list-group-item display-6"><%= authors[i].fullname %>
+                <li class="list-group-item display-6" onclick="location.href='/authors/<%= authors[i]._id %>';"
+                    style="cursor: pointer;"><%= authors[i].fullname %>
                     <% if (authors[i].canEdit) { %>
                         <a class="btn btn-danger" href="/authors/delete?id=<%= authors[i].id %>"
                            role="button">Delete</a>

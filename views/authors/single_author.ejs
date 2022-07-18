@@ -1,0 +1,19 @@
+<% layout("layouts/boilerplate") %>
+<div class="col-md-6 offset-md-3 bg-light rounded shadow-lg p-3">
+    <div>
+        <img src="<%= author.profilePicture.url %>" alt="" class="img-thumbnail rounded-circle"
+             style="width: 240px; height: 240px; object-fit: cover;">
+    </div>
+
+    <p class="display-5">Толық аты: <%= author.fullname %> <a class="btn btn-primary"
+                                                              href="/authors/edit?id=<%= author.id %>" role="button">Профильді
+            өзгерту</a></p>
+
+    <hr>
+
+    <div>
+        Автордың биографиясы:
+        <br>
+        <%= author.biography %>
+    </div>
+</div>

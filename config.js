@@ -8,6 +8,11 @@ const defaultProfilePicture = {
     filename: "zerdeleu-images/893_ybnxhy.png",
 };
 
+const defaultAuthorProfilePicture = {
+    url: "https://res.cloudinary.com/de7j5tens/image/upload/v1658117471/zerdeleu-images/9717_large_letr1i.jpg",
+    filename: "zerdeleu-images/9717_large_letr1i.jpg",
+};
+
 const saltRounds = 10;
 
 const sessionConfig = {
@@ -26,6 +31,7 @@ module.exports = {
     mongoURI,
     secretString,
     defaultProfilePicture,
+    defaultAuthorProfilePicture,
     saltRounds,
     sessionConfig,
 }

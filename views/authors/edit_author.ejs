@@ -4,12 +4,21 @@
 
     <input name="id" type="hidden" value="<%= author._id %>">
 
-    <div class="form-group mb-3 row">
-        <label for="fullname" class="col-sm-3 col-form-label">Author fullname</label>
-        <div class="col-sm-9">
-            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Author fullname"
-                   value="<%= author.fullname %>" required>
-        </div>
+    <div class="form-group mb-3">
+        <label for="fullname">Толық аты</label>
+        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Толық аты"
+               value="<%= author.fullname %>" required>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="profilepic">Профиль суреті</label>
+        <input id="profilepic" class="form-control" type="file" name="profilepic"/>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="biography">Биография</label>
+        <textarea class="form-control" id="biography" name="biography" style="height: 250px;" placeholder="Биография"
+                  required><%= author.biography %></textarea>
     </div>
 
     <button class="btn btn-primary" type="submit">Submit</button>
