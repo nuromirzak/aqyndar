@@ -4,6 +4,7 @@
 - [ ] Implement admin panel
 - [x] Implement user edit profile
 - [ ] Complete the footer
-- [ ] Make the site responsive
+- [x] Make the site responsive
 - [ ] Make an admin be able to view unmoderated annotations
 - [x] Add likes/dislikes to poems
+- [ ] Handle overflow of the bootstrap cards
