@@ -48,13 +48,10 @@ const signUp = async (req, res) => {
         profilePicture = config.defaultProfilePicture;
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, config.saltRounds);
-
     // Create a new user
     const user = new User({
         username: username,
-        password: hashedPassword,
+        password: password,
         profilePicture: profilePicture,
         email: email,
         role: role,

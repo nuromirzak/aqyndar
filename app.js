@@ -71,16 +71,21 @@ app.get("/error", (req, res) => {
     throw new Error("Custom error");
 });
 
+// Only for development
+app.get('/yt', (req, res) => {
+    res.render('yt-player');
+});
+
+// Error handling
 app.use((err, req, res, next) => {
     console.log(err);
 
-    // Render the error page
-    res.status(err.status || 500);
+    const {status = 500, message = "Unknown error"} = err;
 
-    res.render('error', {
+    res.status(status).render('error', {
         title: 'Қате',
         isLogged: Boolean(req.session.user_id),
-        errorMessage: err.message,
-        statusCode: err.status || 500,
+        errorMessage: message,
+        statusCode: status,
     });
 });

@@ -184,6 +184,7 @@ const displayEditPoem = async (req, res) => {
 // Controller that saves/updates a poem
 const savePoem = async (req, res) => {
     const {id, title, poem, author} = req.body;
+    let {yt_id} = req.body;
 
     // Validate required fields
     if (!(title && poem && author)) {
@@ -198,6 +199,11 @@ const savePoem = async (req, res) => {
         poemToUpdate = await Poem.findById(id);
     }
 
+    // Parse youtube id
+    if (yt_id) {
+        yt_id = helpers.youtube_parser(yt_id);
+    }
+
     // If poemToUpdate is undefined, then this is a new poem
     // else this is an update of an existing poem
     if (poemToUpdate) {
@@ -210,6 +216,7 @@ const savePoem = async (req, res) => {
         poemToUpdate.title = title;
         poemToUpdate.poem = poem;
         poemToUpdate.author_id = author;
+        poemToUpdate.yt_id = yt_id;
 
         // Update poem
         await poemToUpdate.save();
@@ -221,6 +228,7 @@ const savePoem = async (req, res) => {
             title,
             poem,
             liked: {},
+            yt_id,
         });
 
         // Save poem

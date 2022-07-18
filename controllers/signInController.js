@@ -26,26 +26,14 @@ const signIn = async (req, res) => {
         return;
     }
 
-    // Check if the user exists
-    const user = await User.findOne({username});
+    // Check and validate the user
+    const user = await User.findAndValidate(username, password);
 
-    // If the user does not exist, return an error
-    if (!user) {
-        res.status(400).send("No user found with that username");
-        return;
+    if (user) {
+        req.session.user_id = user._id;
+    } else {
+        return res.redirect("/sign_in");
     }
-
-    // Check if the password is correct
-    const isCorrect = await bcrypt.compare(password, user.password);
-
-    // If the password is incorrect, return an error
-    if (!isCorrect) {
-        res.status(400).send("Incorrect password");
-        return;
-    }
-
-    // Assign the user to the session
-    req.session.user_id = user._id;
 
     // Redirect to the profile page
     res.redirect("/profile");

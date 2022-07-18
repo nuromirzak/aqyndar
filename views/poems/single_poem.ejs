@@ -7,6 +7,7 @@
            style="cursor: pointer;"><%= poem.title %>
             <a class="btn btn-primary" href="/annotations/new?poem_id=<%= poem.id %>" role="button">Аннотация
                 қосу</a>
+
             <% if (poem.canEdit) { %>
                 <a class="btn btn-danger" href="/poems/delete?id=<%= poem.id %>" role="button">Жою</a>
                 <a class="btn btn-secondary" href="/poems/edit?id=<%= poem.id %>" role="button">Өзгерту</a>
@@ -20,6 +21,18 @@
                 <% } %>
             <% } %>
         </p>
+
+        <% if (poem.yt_id) { %>
+            <div class="video-container mb-3">
+                <iframe src="https://www.youtube.com/embed/<%= poem.yt_id %>" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+        <% } else { %>
+            <div class="mb-3">
+                <p>Бұл поэмаға әлі видео қосылған жоқ.</p>
+            </div>
+        <% } %>
 
         <p class="display-6"><%= poem.authorName %></p>
 

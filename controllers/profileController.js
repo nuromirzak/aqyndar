@@ -3,9 +3,10 @@ const User = require("../models/user");
 const moment = require("moment");
 const bcrypt = require("bcrypt");
 const config = require("../config");
+const AppError = require("../AppError");
 
 // Controller that displays the profile page
-const displayProfile = async (req, res) => {
+const displayProfile = async (req, res, next) => {
     // Find all annotations of the user
     const annotations = await Annotation.find({user_id: req.session.user_id});
 
@@ -112,7 +113,7 @@ const passwordChange = async (req, res) => {
     }
 
     // Update the user
-    user.password = await bcrypt.hash(new_password_1, config.saltRounds);
+    user.password = new_password_1;
 
     // Save the user
     user.save()

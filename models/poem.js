@@ -8,6 +8,7 @@ const poemSchema = new Schema({
     poem: String,
     title: String,
     liked: Map,
+    yt_id: String,
 });
 
 const Poem = mongoose.model("Poem", poemSchema);
