@@ -6,4 +6,4 @@
 - [ ] Complete the footer
 - [ ] Make the site responsive
 - [ ] Make an admin be able to view unmoderated annotations
-- [ ] Add likes/dislikes to poems
+- [x] Add likes/dislikes to poems

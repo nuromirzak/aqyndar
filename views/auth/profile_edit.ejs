@@ -1,6 +1,6 @@
 <% layout("layouts/boilerplate") %>
-<div class="col-sm-6 offset-sm-4">
-    <form action="/profile/edit" method="post" enctype="multipart/form-data">
+<div class="col-md-6 offset-md-3">
+    <form action="/profile/edit" method="post" enctype="multipart/form-data" class="mb-3">
         <div class="mb-3">
             <p class="display-3">Profile edit Form</p>
         </div>
@@ -18,11 +18,41 @@
 
         <div class="form-group mb-3">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<%= user.email %>" required>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                   value="<%= user.email %>" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
-
-        <a class="btn btn-success" href="/profile" role="button">Профильге қайтып келу</a>
     </form>
+
+    <form action="/profile/edit_password" method="post" class="mb-3">
+        <div class="mb-3">
+            <p class="display-6">Құпиясөзді өзгерту</p>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="old_password">Ескі құпиясөзді теріңіз:</label>
+            <input type="password" class="form-control" id="old_password" name="old_password"
+                   placeholder="Ескі құпиясөз"
+                   required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="new_password_1">Жаңа құпиясөзді қайта теріңіз:</label>
+            <input type="password" class="form-control" id="new_password_1" name="new_password_1"
+                   placeholder="Жаңа құпиясөз"
+                   required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="new_password_2">Жаңа құпиясөзді қайта теріңіз:</label>
+            <input type="password" class="form-control" id="new_password_2" name="new_password_2"
+                   placeholder="Қайта теріңіз"
+                   required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Өзгерту</button>
+    </form>
+
+    <a class="btn btn-success" href="/profile" role="button">Профильге қайтып келу</a>
 </div>

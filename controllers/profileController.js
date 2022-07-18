@@ -1,11 +1,13 @@
 const Annotation = require("../models/annotation");
 const User = require("../models/user");
 const moment = require("moment");
+const bcrypt = require("bcrypt");
+const config = require("../config");
 
 // Controller that displays the profile page
 const displayProfile = async (req, res) => {
     // Find all annotations of the user
-    const annotations = await Annotation.find({ user_id: req.session.user_id });
+    const annotations = await Annotation.find({user_id: req.session.user_id});
 
     let user = await User.findById(req.session.user_id);
 
@@ -82,8 +84,52 @@ const profileEdit = async (req, res) => {
     res.redirect("/profile");
 };
 
+// Controller that handles the password change process
+const passwordChange = async (req, res) => {
+    const {old_password, new_password_1, new_password_2} = req.body;
+
+    if (!(old_password && new_password_1 && new_password_2)) {
+        res.status(400).send("Missing required fields");
+        return;
+    }
+
+    // Find the user
+    const user = await User.findById(req.session.user_id);
+
+    // Check if old password is correct
+    const isCorrect = await bcrypt.compare(old_password, user.password);
+
+    // If the old password is incorrect, return an error
+    if (!isCorrect) {
+        res.status(400).send("Incorrect password");
+        return;
+    }
+
+    // Check if the new passwords match
+    if (new_password_1 !== new_password_2) {
+        res.status(400).send("New passwords do not match");
+        return;
+    }
+
+    // Update the user
+    user.password = await bcrypt.hash(new_password_1, config.saltRounds);
+
+    // Save the user
+    user.save()
+        .then((result) => {
+            console.log('User edited successfully');
+        }).catch((err) => {
+            console.log(err);
+        }
+    );
+
+    // Redirect to the profile page
+    res.redirect("/profile");
+};
+
 module.exports = {
     displayProfile,
     displayProfileEdit,
     profileEdit,
+    passwordChange,
 };
