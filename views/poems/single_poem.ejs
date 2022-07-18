@@ -9,7 +9,7 @@
                 қосу</a>
             <% if (poem.canEdit) { %>
                 <a class="btn btn-danger" href="/poems/delete?id=<%= poem.id %>" role="button">Жою</a>
-                <a class="btn btn-secondary" href="/poems/new?id=<%= poem.id %>" role="button">Өзгерту</a>
+                <a class="btn btn-secondary" href="/poems/edit?id=<%= poem.id %>" role="button">Өзгерту</a>
             <% } %>
 
             <% if (isLogged) { %>

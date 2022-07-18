@@ -22,6 +22,7 @@ const signOutController = require("./controllers/signOutController");
 const annotationRouter = require("./routers/annotationRouter");
 const profileRouter = require("./routers/profileRouter");
 const helpers = require("./helpers");
+const {MongooseError} = require("mongoose");
 
 app.use("/static", express.static(__dirname + "/public"));
 
@@ -56,3 +57,30 @@ app.use("/authors", authorRouter);
 app.use("/poems", poemRouter);
 
 app.use("/annotations", annotationRouter);
+
+// Only for development
+app.get("/error", (req, res) => {
+    console.log("Divide by zero error");
+
+    const object = {};
+
+    object.fly();
+
+    console.log("No errors here");
+
+    throw new Error("Custom error");
+});
+
+app.use((err, req, res, next) => {
+    console.log(err);
+
+    // Render the error page
+    res.status(err.status || 500);
+
+    res.render('error', {
+        title: 'Қате',
+        isLogged: Boolean(req.session.user_id),
+        errorMessage: err.message,
+        statusCode: err.status || 500,
+    });
+});

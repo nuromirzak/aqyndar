@@ -8,7 +8,7 @@
         <label for="title" class="col-sm-3 col-form-label">Poem name</label>
         <div class="col-sm-9">
             <input type="text" class="form-control" id="title" name="title" placeholder="Poem name"
-                   value="<% poem.title %>" required>
+                   value="<%= poem.title %>" required>
         </div>
     </div>
 
@@ -18,13 +18,13 @@
         <div class="col-sm-9">
             <select class="form-control" id="authors" name="author" required>
                 <% authors.forEach(function(author) { %>
-                    <% if (compareObjectIds(author._id, poem._id)) { %>
+                    <% if (compareObjectIds(author._id, poem.author_id)) { %>
                         <option value="<%= author._id %>" selected>
-                            <%= author.name %>
+                            <%= author.fullname %>
                         </option>
                     <% } else { %>
                         <option value="<%= author._id %>">
-                            <%= author.name %>
+                            <%= author.fullname %>
                         </option>
                     <% } %>
                 <% }) %>

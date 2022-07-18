@@ -29,6 +29,9 @@ const displayAllPoems = async (req, res) => {
         poem.likes = likes;
     }
 
+    // Sort poems by likes
+    poems.sort((a, b) => b.likes - a.likes);
+
     // Render all poems
     res.render("poems/all_poems", {
         title: "All poems",
@@ -53,13 +56,21 @@ const likePoem = async (req, res) => {
         return;
     }
 
-    poem.liked.set(req.session.user_id, !poem.liked.get(req.session.user_id));
+    const isLiked = poem.liked.get(req.session.user_id);
 
-    console.log("Like controller:");
-
-    console.log(poem.liked);
+    poem.liked.set(req.session.user_id, !isLiked);
 
     await poem.save();
+
+    const author = await Author.findById(poem.author_id);
+
+    if (isLiked) {
+        author.likesNum--;
+    } else {
+        author.likesNum++;
+    }
+
+    await author.save();
 
     res.redirect(`/poems/${id}`);
 }
@@ -80,10 +91,6 @@ const displayPoem = async (req, res) => {
         res.send("Poem not found");
         return;
     }
-
-    console.log("Poem controller:");
-
-    console.log(poem);
 
     // Find annotations which are related to this poem
     const annotations = await Annotation.find({poem_id: poem._id});

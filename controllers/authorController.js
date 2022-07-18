@@ -16,6 +16,17 @@ const displayAllAuthors = async (req, res) => {
         }
     }
 
+    // Sort the authors by lexicographic order
+    authors.sort((a, b) => {
+        if (a.fullname < b.fullname) {
+            return -1;
+        }
+        if (a.fullname > b.fullname) {
+            return 1;
+        }
+        return 0;
+    });
+
     // Render the all authors page
     res.render("authors/all_authors", {
         title: "All authors",
@@ -130,6 +141,7 @@ const saveAuthor = async (req, res) => {
             user_id: req.session.user_id,
             profilePicture,
             biography,
+            likesNum: 0,
         });
 
         await author.save();
