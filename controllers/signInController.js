@@ -10,9 +10,12 @@ const displaySignIn = (req, res) => {
         return;
     }
 
+    const create_info = req.flash("create_info");
+
     res.render("auth/sign_in", {
         title: "Sign In",
         isLogged: Boolean(req.session.user_id),
+        create_info: create_info[0],
     });
 };
 
@@ -34,6 +37,8 @@ const signIn = async (req, res) => {
     } else {
         return res.redirect("/sign_in");
     }
+
+    req.flash("sign_in", "You have successfully signed in");
 
     // Redirect to the profile page
     res.redirect("/profile");

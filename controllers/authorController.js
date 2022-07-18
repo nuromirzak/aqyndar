@@ -27,11 +27,16 @@ const displayAllAuthors = async (req, res) => {
         return 0;
     });
 
+    const update_info = req.flash("update_info");
+    const delete_info = req.flash("delete_info");
+
     // Render the all authors page
     res.render("authors/all_authors", {
         title: "All authors",
         authors,
         isLogged: Boolean(req.session.user_id),
+        update_info: update_info[0],
+        delete_info: delete_info[0],
     });
 };
 
@@ -134,6 +139,8 @@ const saveAuthor = async (req, res) => {
         authorToUpdate.biography = biography;
 
         await authorToUpdate.save();
+
+        req.flash("update_info", "Author updated successfully");
     } else {
         // Create a new author
         const author = new Author({
@@ -145,6 +152,8 @@ const saveAuthor = async (req, res) => {
         });
 
         await author.save();
+
+        req.flash("update_info", "Author created successfully");
     }
 
     // Redirect to the all authors page
@@ -194,6 +203,8 @@ const deleteAuthor = async (req, res) => {
 
     // Finally, delete the author
     await Author.deleteOne({_id: author._id});
+
+    req.flash("delete_info", "Author deleted successfully");
 
     // Redirect to the all authors page
     res.redirect("/authors");

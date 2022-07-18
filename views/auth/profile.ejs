@@ -1,9 +1,17 @@
 <% layout("layouts/boilerplate") %>
 <div class="col-md-6 offset-md-3 bg-light rounded shadow-lg p-3">
-    <div>
+    <div class="mb-3">
         <img src="<%= user.profilePicture.url %>" alt="" class="img-thumbnail rounded-circle"
              style="width: 240px; height: 240px; object-fit: cover;">
     </div>
+
+    <% if (update_info) { %>
+        <div class="alert alert-success" role="alert"><%= update_info %></div>
+    <% } %>
+
+    <% if (sign_in) { %>
+        <div class="alert alert-success" role="alert"><%= sign_in %></div>
+    <% } %>
 
     <p class="display-5">Пайдаланушы: <%= user.username %> <a class="btn btn-primary" href="/profile/edit"
                                                               role="button">Профильді өзгерту</a>

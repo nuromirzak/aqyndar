@@ -16,12 +16,17 @@ const displayProfile = async (req, res, next) => {
     // change registrationDate to a formatted date
     user = {...user.toObject(), registrationDate: formattedDate};
 
+    const update_info = req.flash("update_info");
+    const sign_in = req.flash("sign_in");
+
     // Render the profile page
     res.render("auth/profile", {
         title: "Profile",
         isLogged: Boolean(req.session.user_id),
         user: user,
         annotations: annotations,
+        update_info: update_info[0],
+        sign_in: sign_in[0],
     });
 };
 
@@ -73,13 +78,8 @@ const profileEdit = async (req, res) => {
     }
 
     // Save the user
-    user.save()
-        .then((result) => {
-            console.log('User edited successfully');
-        }).catch((err) => {
-            console.log(err);
-        }
-    );
+    await user.save();
+    req.flash("update_info", "User edited successfully");
 
     // Redirect to the profile page
     res.redirect("/profile");

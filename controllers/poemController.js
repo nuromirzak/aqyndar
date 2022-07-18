@@ -32,11 +32,17 @@ const displayAllPoems = async (req, res) => {
     // Sort poems by likes
     poems.sort((a, b) => b.likes - a.likes);
 
+    const edit_info = req.flash("edit_info");
+
+    const delete_info = req.flash("delete_info");
+
     // Render all poems
     res.render("poems/all_poems", {
         title: "All poems",
         isLogged: Boolean(req.session.user_id),
         poems: poems,
+        edit_info: edit_info[0],
+        delete_info: delete_info[0],
     });
 };
 
@@ -65,9 +71,11 @@ const likePoem = async (req, res) => {
     const author = await Author.findById(poem.author_id);
 
     if (isLiked) {
-        author.likesNum--;
+        req.flash('like_info', `You unliked ${author.fullname}'s poem`);
+        author.likesNum = author.likesNum - 1;
     } else {
-        author.likesNum++;
+        req.flash('like_info', `You liked ${author.fullname}'s poem`);
+        author.likesNum = author.likesNum + 1;
     }
 
     await author.save();
@@ -123,12 +131,15 @@ const displayPoem = async (req, res) => {
 
     const liked = poem.liked.get(req.session.user_id);
 
+    const like_info = req.flash("like_info");
+
     // Render poem
     res.render("poems/single_poem", {
         title: poem.title,
         poem: poem,
         liked: liked,
         isLogged: Boolean(req.session.user_id),
+        like_info: like_info[0],
     });
 }
 
@@ -220,6 +231,8 @@ const savePoem = async (req, res) => {
 
         // Update poem
         await poemToUpdate.save();
+
+        req.flash("edit_info", "Poem updated successfully");
     } else {
         // Create new poem
         const poem2 = new Poem({
@@ -233,6 +246,8 @@ const savePoem = async (req, res) => {
 
         // Save poem
         await poem2.save();
+
+        req.flash("edit_info", "Poem created successfully");
     }
 
     // Redirect to all poems page
@@ -274,6 +289,8 @@ const deletePoem = async (req, res) => {
 
     // Delete poem
     await Poem.deleteOne({_id: poem._id});
+
+    req.flash("delete_info", "Poem deleted successfully");
 
     // Redirect to all poems page
     res.redirect("/poems");

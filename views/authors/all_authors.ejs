@@ -3,6 +3,14 @@
     <div class="col-md-6 offset-md-3">
         <p class="display-3">Бүкіл авторлар</p>
 
+        <% if (update_info) { %>
+            <div class="alert alert-success" role="alert"><%= update_info %></div>
+        <% } %>
+
+        <% if (delete_info) { %>
+            <div class="alert alert-danger" role="alert"><%= delete_info %></div>
+        <% } %>
+
         <ul class="list-group">
             <% for (let i = 0; i < authors.length; i++) { %>
 

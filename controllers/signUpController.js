@@ -59,15 +59,12 @@ const signUp = async (req, res) => {
         registrationDate: Date.now(),
     });
 
-    user.save()
-        .then((result) => {
-            console.log('User created successfully');
-            res.redirect("/sign_in");
-        }).catch((err) => {
-            console.log(err);
-            res.redirect("/sign_up");
-        }
-    );
+    await user.save();
+    console.log('User created successfully');
+    req.flash("create_info", "User created successfully");
+
+    // Redirect to the sign-in page
+    res.redirect("/sign_in");
 };
 
 module.exports = {

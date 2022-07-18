@@ -4,6 +4,7 @@ const session = require('express-session');
 const ejsMate = require('ejs-mate');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const flash = require('connect-flash');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -22,7 +23,6 @@ const signOutController = require("./controllers/signOutController");
 const annotationRouter = require("./routers/annotationRouter");
 const profileRouter = require("./routers/profileRouter");
 const helpers = require("./helpers");
-const {MongooseError} = require("mongoose");
 
 app.use("/static", express.static(__dirname + "/public"));
 
@@ -41,6 +41,7 @@ mongoose.connect(config.mongoURI, {useNewUrlParser: true, useUnifiedTopology: tr
 app.use(session(config.sessionConfig));
 
 app.use(morgan('dev'));
+app.use(flash());
 
 app.get("/", remainControllers.displayMainPage);
 

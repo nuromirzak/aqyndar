@@ -2,6 +2,14 @@
 <div class="col-md-6 offset-md-3">
     <p class="display-3">Бүкіл аннотациялар</p>
 
+    <% if (edit_info) { %>
+        <div class="alert alert-success" role="alert"><%= messages %></div>
+    <% } %>
+
+    <% if (delete_info) { %>
+        <div class="alert alert-danger" role="alert"><%= delete_info %></div>
+    <% } %>
+
     <table class="table">
         <thead>
         <tr>

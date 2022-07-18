@@ -1,5 +1,11 @@
 <% layout("layouts/boilerplate") %>
 <div class="col-md-6 offset-md-3">
+    <% if (create_info) { %>
+        <div class="alert alert-success mb-3" role="alert">
+            <p class="mb-0"><%= create_info %></p>
+        </div>
+    <% } %>
+
     <form action="/sign_in" method="post">
         <div class="mb-3">
             <p class="display-3">Sign In Form</p>
