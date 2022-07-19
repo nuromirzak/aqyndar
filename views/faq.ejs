@@ -1,0 +1,58 @@
+<% layout("layouts/boilerplate") %>
+<div>
+    <p class="display-1">Сұрақ/Жауап немесе FAQ</p>
+    <p>Бұл вебсайттың мақсаты - Қазақстан жазушыларының және ақындарының поэемаларын халыққа түсінікті тілде жеткізу.
+        <strong>Болашақта толықтырылады...</strong></p>
+
+    <div class="accordion" id="faqAccordion">
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading_1">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse_1" aria-expanded="false" aria-controls="collapse_1">
+                    Бұл проекттің мақсаты не?
+                </button>
+            </h2>
+            <div id="collapse_1" class="accordion-collapse collapse" aria-labelledby="heading_1"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">Бұл вебсайттың мақсаты - Қазақстан жазушыларының және ақындарының
+                    поэемаларын халыққа түсінікті тілде жеткізу.
+                    <strong>Болашақта толықтырылады...</strong></div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading_2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse_2" aria-expanded="false" aria-controls="collapse_2">
+                    Бұл проект тегін бе?
+                </button>
+            </h2>
+            <div id="collapse_2" class="accordion-collapse collapse" aria-labelledby="heading_2"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <strong>Иә!</strong> Бұл проект краудсорсинг принциптеріне сүйенеді. <strong>Краудсорсинг</strong>
+                    (ағылшынша crowdsourcing, crowd — «адамдар тобы» жәнеsourcing — «ресурстарды пайдалану») —белгілі
+                    бір мәселені шешу үшін адамдар тобының шығармашылық қабілетін, білімін, тәжірбиесін ерікті түрде
+                    пайдалану. <a href="https://atameken.co/kk/article/193" target="_blank">Ақпарат көзі.</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading_3">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse_3" aria-expanded="false" aria-controls="collapse_3">
+                    Автормен қалай байланысуға болады?
+                </button>
+            </h2>
+            <div id="collapse_3" class="accordion-collapse collapse" aria-labelledby="heading_3"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Осы электрондық поштаға жазыңыз. <a href="mailto:todo@example.com">TODO.com</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

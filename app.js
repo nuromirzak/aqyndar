@@ -45,6 +45,10 @@ app.use(flash());
 
 app.get("/", remainControllers.displayMainPage);
 
+app.get("/about", remainControllers.displayAboutPage);
+
+app.get('/faq', remainControllers.displayFAQPage);
+
 app.get("/sign_out", helpers.isAuth, signOutController.signOut);
 
 app.use('/profile', profileRouter);
