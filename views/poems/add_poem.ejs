@@ -3,17 +3,17 @@
     <p class="display-5">Жаңа поэема қосу</p>
 
     <div class="form-group mb-3 row">
-        <label for="title" class="col-sm-3 col-form-label">Poem name</label>
+        <label for="title" class="col-sm-3 col-form-label">Өлеңнің аты:</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" id="title" name="title" placeholder="Poem name" required></div>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Өлеңнің аты" required></div>
     </div>
 
     <div class="form-group mb-3 row">
-        <label for="authors" class="col-sm-3 col-form-label">Authors: </label>
+        <label for="authors" class="col-sm-3 col-form-label">Авторлар:</label>
 
         <div class="col-sm-9">
             <select class="form-control" id="authors" name="author" required>
-                <option value="" selected disabled>Select author</option>
+                <option value="" selected disabled>Авторды таңдаңыз</option>
                 <% authors.forEach(function(author) { %>
                     <option value="<%= author._id %>"><%= author.fullname %></option>
                 <% }) %>
@@ -24,7 +24,7 @@
     <div class="form-group mb-3 row">
         <label for="yt_id" class="col-sm-3 col-form-label">Youtube сілтеме:</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" id="yt_id" name="yt_id" placeholder="Youtube сілтеме" required>
+            <input type="text" class="form-control" id="yt_id" name="yt_id" placeholder="Youtube сілтеме">
         </div>
     </div>
 
@@ -37,8 +37,8 @@
                         style="height: 250px;"
                         required
                 ></textarea>
-        <label for="floatingTextarea">Poem</label>
+        <label for="floatingTextarea">Өлеңнің тексті</label>
     </div>
 
-    <button class="btn btn-primary" type="submit">Submit</button>
+    <button class="btn btn-primary" type="submit">Жіберу</button>
 </form>

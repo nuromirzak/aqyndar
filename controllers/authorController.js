@@ -32,7 +32,7 @@ const displayAllAuthors = async (req, res) => {
 
     // Render the all authors page
     res.render("authors/all_authors", {
-        title: "All authors",
+        title: "Бүкіл авторлар",
         authors,
         isLogged: Boolean(req.session.user_id),
         update_info: update_info[0],
@@ -43,7 +43,7 @@ const displayAllAuthors = async (req, res) => {
 // Controller for displaying a form for adding a new author
 const displayAddAuthorForm = async (req, res) => {
     res.render("authors/add_author", {
-        title: "Add Author",
+        title: "Жаңа автор қосу",
         isLogged: Boolean(req.session.user_id),
     });
 };
@@ -55,7 +55,7 @@ const displayEditAuthorForm = async (req, res) => {
 
     // Check if the id is present
     if (!id) {
-        res.status(400).send("Missing required fields");
+        res.status(400).send("Міндетті торлар толтырылуы қажет");
         return;
     }
 
@@ -64,19 +64,19 @@ const displayEditAuthorForm = async (req, res) => {
 
     // Check if the author is found
     if (!author) {
-        res.send("Author not found");
+        res.send("Автор табылмады");
         return;
     }
 
     // Check if the user has access to the author
     if (!helpers.hasAccess(author.user_id, req.session.user_id)) {
-        res.send("You can't edit this author");
+        res.send("Сіз бұл авторды өңдей алмайсыз");
         return;
     }
 
     // Render the edit author form
     res.render("authors/edit_author", {
-        title: "Edit Author",
+        title: "Авторды өңдеу",
         author: author,
         isLogged: Boolean(req.session.user_id),
     });
@@ -88,7 +88,7 @@ const saveAuthor = async (req, res) => {
 
     // Check if required fields are present
     if (!fullname) {
-        res.status(400).send("Bad request");
+        res.status(400).send("Міндетті торлар толтырылуы қажет");
         return;
     }
 
@@ -127,7 +127,7 @@ const saveAuthor = async (req, res) => {
     if (authorToUpdate) {
         // Check if the user has access to the author
         if (!helpers.hasAccess(authorToUpdate.user_id, req.session.user_id)) {
-            res.send("You can't update this author");
+            res.send("Сіз бұл авторды жаңарта алмайсыз");
             return;
         }
 
@@ -140,7 +140,7 @@ const saveAuthor = async (req, res) => {
 
         await authorToUpdate.save();
 
-        req.flash("update_info", "Author updated successfully");
+        req.flash("update_info", "Автор сәтті жаңартылды");
     } else {
         // Create a new author
         const author = new Author({
@@ -153,7 +153,7 @@ const saveAuthor = async (req, res) => {
 
         await author.save();
 
-        req.flash("update_info", "Author created successfully");
+        req.flash("update_info", "Автор сәтті құрылды");
     }
 
     // Redirect to the all authors page
@@ -166,7 +166,7 @@ const deleteAuthor = async (req, res) => {
     const {id} = req.query;
 
     if (!id) {
-        res.status(400).send("Missing required fields");
+        res.status(400).send("Міндетті торлар толтырылуы қажет");
         return;
     }
 
@@ -175,13 +175,13 @@ const deleteAuthor = async (req, res) => {
 
     // If author is not found, return an error
     if (!author) {
-        res.send("Author not found");
+        res.send("Автор табылмады");
         return;
     }
 
     // Check if the user has access to the author
     if (!helpers.hasAccess(author.user_id, req.session.user_id)) {
-        res.send("You can't delete this author");
+        res.send("Сіз бұл авторды жоя алмайсыз");
         return;
     }
 
@@ -204,7 +204,7 @@ const deleteAuthor = async (req, res) => {
     // Finally, delete the author
     await Author.deleteOne({_id: author._id});
 
-    req.flash("delete_info", "Author deleted successfully");
+    req.flash("delete_info", "Автор сәтті жойылды");
 
     // Redirect to the all authors page
     res.redirect("/authors");
@@ -217,7 +217,7 @@ const displayAuthor = async (req, res) => {
 
     // Check if the id is present
     if (!id) {
-        res.status(400).send("Missing required fields");
+        res.status(400).send("Міндетті торлар толтырылуы қажет");
         return;
     }
 
@@ -226,7 +226,7 @@ const displayAuthor = async (req, res) => {
 
     // Check if the author is found
     if (!author) {
-        res.send("Author not found");
+        res.send("Автор табылмады");
         return;
     }
 

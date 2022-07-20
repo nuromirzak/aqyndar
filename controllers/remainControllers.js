@@ -2,7 +2,7 @@
 const displayMainPage = (req, res) => {
     // Render the main page
     res.render("home", {
-        title: "Home",
+        title: "Басты бет",
         isLogged: Boolean(req.session.user_id),
     });
 };
@@ -11,7 +11,7 @@ const displayMainPage = (req, res) => {
 const displayAboutPage = (req, res) => {
     // Render the about page
     res.render("about", {
-        title: "About",
+        title: "Біз туралы",
         isLogged: Boolean(req.session.user_id),
     });
 };

@@ -27,7 +27,7 @@ const displayPoemsForAddingAnnotation = async (req, res) => {
 
     // Render the add annotation page
     res.render("annotations/poems_for_annotations", {
-        title: "Add Annotation",
+        title: "Аннотация қосу",
         isLogged: Boolean(req.session.user_id),
         poems: poems,
     });
@@ -43,13 +43,13 @@ const displayAddAnnotation = async (req, res) => {
 
     // If poem doesn't exist, send message to user
     if (!poem) {
-        res.send("Poem not found");
+        res.send("Өлең табылмады");
         return;
     }
 
     // Render the add annotation page
     res.render("annotations/add_annotation", {
-        title: "Add Annotation",
+        title: "Аннотация қосу",
         isLogged: Boolean(req.session.user_id),
         id: id,
         poemName: poem.title,
@@ -63,7 +63,7 @@ const addAnnotation = async (req, res) => {
 
     // Check if required fields are filled out
     if (!(poem_id && line_number && annotation)) {
-        res.status(400).send("Missing required fields");
+        res.status(400).send("Міндетті торлар толтырылуы қажет");
         return;
     }
 

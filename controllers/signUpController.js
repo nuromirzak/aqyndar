@@ -11,7 +11,7 @@ const displaySignUp = (req, res) => {
     }
 
     res.render('auth/sign_up', {
-        title: 'Sign Up',
+        title: 'Регистрация',
         isLogged: Boolean(req.session.user_id),
     });
 };
@@ -21,7 +21,7 @@ const signUp = async (req, res) => {
     const {username, password, email, role} = req.body;
 
     if (!(username && password && email && role)) {
-        res.status(400).send("Missing required fields");
+        res.status(400).send("Міндетті торлар толтырылмаған");
         return;
     }
 
@@ -60,8 +60,8 @@ const signUp = async (req, res) => {
     });
 
     await user.save();
-    console.log('User created successfully');
-    req.flash("create_info", "User created successfully");
+    console.log('Пайдаланушы сәтті құрылды');
+    req.flash("create_info", "Пайдаланушы сәтті құрылды");
 
     // Redirect to the sign-in page
     res.redirect("/sign_in");

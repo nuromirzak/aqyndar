@@ -38,7 +38,7 @@ const displayAllPoems = async (req, res) => {
 
     // Render all poems
     res.render("poems/all_poems", {
-        title: "All poems",
+        title: "Бүкіл өлеңдер",
         isLogged: Boolean(req.session.user_id),
         poems: poems,
         edit_info: edit_info[0],
@@ -58,7 +58,7 @@ const likePoem = async (req, res) => {
     }
 
     if (!poem) {
-        res.send("Poem not found");
+        res.send("Өлең табылмады");
         return;
     }
 
@@ -71,10 +71,10 @@ const likePoem = async (req, res) => {
     const author = await Author.findById(poem.author_id);
 
     if (isLiked) {
-        req.flash('like_info', `You unliked ${author.fullname}'s poem`);
+        req.flash('like_info', `Сіз лайк алып тастадыңыз`);
         author.likesNum = author.likesNum - 1;
     } else {
-        req.flash('like_info', `You liked ${author.fullname}'s poem`);
+        req.flash('like_info', `Сіз лайк қойдыңыз`);
         author.likesNum = author.likesNum + 1;
     }
 
@@ -96,7 +96,7 @@ const displayPoem = async (req, res) => {
     }
 
     if (!poem) {
-        res.send("Poem not found");
+        res.send("Өлең табылмады");
         return;
     }
 
@@ -149,7 +149,7 @@ const displayAddPoem = async (req, res) => {
     const authors = await Author.find({});
 
     res.render("poems/add_poem", {
-        title: "Add Poem",
+        title: "Жаңа өлең қосу",
         isLogged: Boolean(req.session.user_id),
         compareObjectIds: helpers.compareObjectIds(),
         authors: authors,
@@ -169,13 +169,13 @@ const displayEditPoem = async (req, res) => {
     }
 
     if (!poem) {
-        res.send("Poem not found");
+        res.send("Өлең табылмады");
         return;
     }
 
     // Check if user can edit this poem
     if (!helpers.hasAccess(poem.user_id, req.session.user_id)) {
-        res.send("You can't edit this poem");
+        res.send("Сіз бұл өлеңді өзгерете алмайсыз");
         return;
     }
 
@@ -184,7 +184,7 @@ const displayEditPoem = async (req, res) => {
 
     // Render form
     res.render("poems/edit_poem", {
-        title: "Edit Poem",
+        title: "Өлеңді өзгерту",
         isLogged: Boolean(req.session.user_id),
         poem: poem,
         compareObjectIds: helpers.compareObjectIds,
@@ -199,7 +199,7 @@ const savePoem = async (req, res) => {
 
     // Validate required fields
     if (!(title && poem && author)) {
-        res.status(400).send("Missing required fields");
+        res.status(400).send("Міндетті торлар толтырылуы қажет");
         return;
     }
 
@@ -220,7 +220,7 @@ const savePoem = async (req, res) => {
     if (poemToUpdate) {
         // Check if user can edit this poem
         if (!helpers.hasAccess(poemToUpdate.user_id, req.session.user_id)) {
-            res.send("You can't update this poem");
+            res.send("Сіз бұл өлеңді өзгерте алмайсыз");
             return;
         }
 
@@ -232,7 +232,7 @@ const savePoem = async (req, res) => {
         // Update poem
         await poemToUpdate.save();
 
-        req.flash("edit_info", "Poem updated successfully");
+        req.flash("edit_info", "Өлең сәтті жаңартылды");
     } else {
         // Create new poem
         const poem2 = new Poem({
@@ -247,7 +247,7 @@ const savePoem = async (req, res) => {
         // Save poem
         await poem2.save();
 
-        req.flash("edit_info", "Poem created successfully");
+        req.flash("edit_info", "Өлең сәтті құрылды");
     }
 
     // Redirect to all poems page
@@ -261,7 +261,7 @@ const deletePoem = async (req, res) => {
 
     // Validate id
     if (!id) {
-        res.status(400).send("Missing required fields");
+        res.status(400).send("Міндетті торлар толтырылуы қажет");
         return;
     }
 
@@ -269,13 +269,13 @@ const deletePoem = async (req, res) => {
     const poem = await Poem.findById(id);
 
     if (!poem) {
-        res.send("Poem not found");
+        res.send("Өлең табылмады");
         return;
     }
 
     // Check if user can edit this poem
     if (!helpers.hasAccess(poem.user_id, req.session.user_id)) {
-        res.send("You can't delete this poem");
+        res.send("Сіз бұл өлеңді жоя алмайсыз");
         return;
     }
 
@@ -290,7 +290,7 @@ const deletePoem = async (req, res) => {
     // Delete poem
     await Poem.deleteOne({_id: poem._id});
 
-    req.flash("delete_info", "Poem deleted successfully");
+    req.flash("delete_info", "Өлең сәтті жойылды");
 
     // Redirect to all poems page
     res.redirect("/poems");

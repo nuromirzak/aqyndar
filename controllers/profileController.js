@@ -21,7 +21,7 @@ const displayProfile = async (req, res, next) => {
 
     // Render the profile page
     res.render("auth/profile", {
-        title: "Profile",
+        title: "Жеке профиль",
         isLogged: Boolean(req.session.user_id),
         user: user,
         annotations: annotations,
@@ -37,7 +37,7 @@ const displayProfileEdit = async (req, res) => {
 
     // Render the profile edit page
     res.render("auth/profile_edit", {
-        title: "Profile Edit",
+        title: "Профильді өзгерту",
         isLogged: Boolean(req.session.user_id),
         user: user,
     });
@@ -48,7 +48,7 @@ const profileEdit = async (req, res) => {
     const {username, email} = req.body;
 
     if (!(username && email)) {
-        res.status(400).send("Missing required fields");
+        res.status(400).send("Міндетті торлар толтырылмаған");
         return;
     }
 
@@ -79,7 +79,7 @@ const profileEdit = async (req, res) => {
 
     // Save the user
     await user.save();
-    req.flash("update_info", "User edited successfully");
+    req.flash("update_info", "Пайдаланушы сәтті өзгертілді");
 
     // Redirect to the profile page
     res.redirect("/profile");
@@ -90,7 +90,7 @@ const passwordChange = async (req, res) => {
     const {old_password, new_password_1, new_password_2} = req.body;
 
     if (!(old_password && new_password_1 && new_password_2)) {
-        res.status(400).send("Missing required fields");
+        res.status(400).send("Міндетті торлар толтырылмаған");
         return;
     }
 
@@ -102,13 +102,13 @@ const passwordChange = async (req, res) => {
 
     // If the old password is incorrect, return an error
     if (!isCorrect) {
-        res.status(400).send("Incorrect password");
+        res.status(400).send("Пароль дұрыс емес");
         return;
     }
 
     // Check if the new passwords match
     if (new_password_1 !== new_password_2) {
-        res.status(400).send("New passwords do not match");
+        res.status(400).send("Жаңа парольдер сәйкес келмейді");
         return;
     }
 
@@ -118,7 +118,7 @@ const passwordChange = async (req, res) => {
     // Save the user
     user.save()
         .then((result) => {
-            console.log('User edited successfully');
+            console.log('Пайдаланушы сәтті өзгертілді');
         }).catch((err) => {
             console.log(err);
         }

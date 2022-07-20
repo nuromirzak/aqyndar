@@ -2,17 +2,17 @@
 <div class="col-md-6 offset-md-3">
     <form action="/profile/edit" method="post" enctype="multipart/form-data" class="mb-3">
         <div class="mb-3">
-            <p class="display-3">Profile edit Form</p>
+            <p class="display-3">Профильді өзгерту</p>
         </div>
 
         <div class="form-group mb-3">
-            <label for="username">Username</label>
+            <label for="username">Логин</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Username"
                    value="<%= user.username %>" required>
         </div>
 
         <div class="form-group mb-3">
-            <label for="profilepic">Your profile picture</label>
+            <label for="profilepic">Профиль фотосуреті</label>
             <input id="profilepic" class="form-control" type="file" name="profilepic"/>
         </div>
 
@@ -22,7 +22,7 @@
                    value="<%= user.email %>" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Жіберу</button>
     </form>
 
     <form action="/profile/edit_password" method="post" class="mb-3">

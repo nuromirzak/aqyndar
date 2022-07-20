@@ -13,7 +13,7 @@ const displaySignIn = (req, res) => {
     const create_info = req.flash("create_info");
 
     res.render("auth/sign_in", {
-        title: "Sign In",
+        title: "Кіру",
         isLogged: Boolean(req.session.user_id),
         create_info: create_info[0],
     });
@@ -25,7 +25,7 @@ const signIn = async (req, res) => {
 
     // Check if required fields are filled
     if (!(username && password)) {
-        res.status(400).send("Missing required fields");
+        res.status(400).send("Міндетті торлар толтырылмаған");
         return;
     }
 
@@ -38,7 +38,7 @@ const signIn = async (req, res) => {
         return res.redirect("/sign_in");
     }
 
-    req.flash("sign_in", "You have successfully signed in");
+    req.flash("sign_in", "Сіз жүйеге сәтті кірдіңіз");
 
     // Redirect to the profile page
     res.redirect("/profile");
