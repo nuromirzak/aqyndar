@@ -4,6 +4,7 @@ const Annotation = require("../models/annotation");
 
 const helpers = require("../helpers");
 const mongoose = require("mongoose");
+const User = require("../models/user");
 
 // Controller that displays all poems
 const displayAllPoems = async (req, res) => {
@@ -109,13 +110,19 @@ const displayPoem = async (req, res) => {
     poem.annotations = [];
 
     for (let i = 0; i < poem.array.length; i++) {
-        // Find annotation which is related to this line
-        const foundAnnotation = annotations.find(annotation => annotation.line_number === i);
+        // Find all annotations which are related to this line
+        const lineAnnotations = annotations.filter(annotation => annotation.line_number === i);
+        poem.annotations[i] = [];
 
-        if (foundAnnotation) {
-            poem.annotations.push(foundAnnotation.content);
+        if (lineAnnotations.length > 0) {
+            // Add all annotations to poem
+            for (let annotation of lineAnnotations) {
+                const owner = await User.findById(annotation.user_id);
+                annotation.owner = owner.username;
+                poem.annotations[i].push(annotation);
+            }
         } else {
-            poem.annotations.push("Бүл жолға әлі аннотация жоқ");
+            poem.annotations[i].push("Бүл жолға әлі аннотация жоқ");
         }
     }
 

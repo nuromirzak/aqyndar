@@ -12,7 +12,9 @@
         <select class="form-control" id="lines" name="line_number" required>
             <option value="">Жолды таңдаңыз</option>
             <% for (let i = 0; i < lines.length; i++) { %>
-                <option value="<%= i %>"><%= lines[i] %></option>
+                <% if (lines[i]) { %>
+                    <option value="<%= i %>"><%= lines[i] %></option>
+                <% } %>
             <% } %>
         </select>
     </div>
