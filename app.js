@@ -23,6 +23,7 @@ const signOutController = require("./controllers/signOutController");
 const annotationRouter = require("./routers/annotationRouter");
 const profileRouter = require("./routers/profileRouter");
 const helpers = require("./helpers");
+const AppError = require("./AppError");
 
 app.use("/static", express.static(__dirname + "/public"));
 
@@ -65,20 +66,22 @@ app.use("/annotations", annotationRouter);
 
 // Only for development
 app.get("/error", (req, res) => {
-    console.log("Divide by zero error");
+    console.log("Starting /error route");
 
     const object = {};
 
     object.fly();
 
-    console.log("No errors here");
+    console.log('Ending /error route');
 
-    throw new Error("Custom error");
+    res.send("No errors here");
 });
 
-// Only for development
-app.get('/yt', (req, res) => {
-    res.render('yt-player');
+// Not found handler
+app.use((req, res, next) => {
+    const err = new AppError(`Бұл веб-парақша ескірген, яғни жойылған немесе мүлдем болмаған.`, 404);
+
+    next(err);
 });
 
 // Error handling

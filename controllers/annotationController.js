@@ -21,6 +21,18 @@ const displayAllAnnotations = async (req, res) => {
     });
 };
 
+const displayPoemsForAddingAnnotation = async (req, res) => {
+    // Get all poems
+    const poems = await Poem.find({});
+
+    // Render the add annotation page
+    res.render("annotations/poems_for_annotations", {
+        title: "Add Annotation",
+        isLogged: Boolean(req.session.user_id),
+        poems: poems,
+    });
+};
+
 // Controller for displaying form for adding an annotation for a specific poem
 const displayAddAnnotation = async (req, res) => {
     // Get the poem id from the query params
@@ -71,6 +83,7 @@ const addAnnotation = async (req, res) => {
 };
 
 module.exports = {
+    displayPoemsForAddingAnnotation,
     displayAllAnnotations,
     displayAddAnnotation,
     addAnnotation,

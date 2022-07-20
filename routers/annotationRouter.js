@@ -7,6 +7,8 @@ router.get('/', annotationController.displayAllAnnotations);
 
 router.get('/new', helpers.isAuth, annotationController.displayAddAnnotation);
 
+router.get('/add', helpers.isAuth, annotationController.displayPoemsForAddingAnnotation);
+
 router.post('/new', helpers.isAuth, annotationController.addAnnotation);
 
 module.exports = router;

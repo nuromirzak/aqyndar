@@ -1,0 +1,16 @@
+<% layout("layouts/boilerplate") %>
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <p class="display-6">Аннотациялар қосқыңыз келетін өлеңді таңдаңыз</p>
+
+        <ul class="list-group">
+            <% for (let i = 0; i < poems.length; i++) { %>
+
+                <li class="list-group-item display-6" onclick="location.href='/annotations/new?poem_id=<%= poems[i]._id %>';"
+                    style="cursor: pointer;"><%= poems[i].title %>
+                </li>
+
+            <% } %>
+        </ul>
+    </div>
+</div>
