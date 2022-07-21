@@ -109,6 +109,8 @@ const saveAuthor = async (req, res) => {
     // Get a file from multer middleware
     const file = req.file;
 
+    console.log(file);
+
     let profilePicture;
 
     // If uploaded image is valid, set profilePicture to the url of the image
@@ -133,7 +135,7 @@ const saveAuthor = async (req, res) => {
 
         authorToUpdate.fullname = fullname;
 
-        if (profilePicture) {
+        if (profilePicture !== config.defaultAuthorProfilePicture) {
             authorToUpdate.profilePicture = profilePicture;
         }
         authorToUpdate.biography = biography;

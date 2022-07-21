@@ -1,0 +1,27 @@
+<% layout("layouts/boilerplate") %>
+<div class="col-md-6 offset-md-3 bg-light rounded shadow-lg p-3">
+    <div class="mb-3">
+        <img src="<%= user.profilePicture.url %>" alt="" class="img-thumbnail rounded-circle"
+             style="width: 240px; height: 240px; object-fit: cover;">
+    </div>
+
+    <p class="display-5">Пайдаланушы: <%= user.username %></p>
+
+    <p><strong>Құпиясөз:</strong> <%= user.password %></p>
+
+    <hr>
+
+    <p><strong>Email:</strong> <%= user.email %></p>
+
+    <hr>
+
+    <p><strong>Роль:</strong> <%= user.role %></p>
+
+    <hr>
+
+    <p><strong>IQ ұпайы:</strong> <%= user.iqNumber %></p>
+
+    <hr>
+
+    <p><strong>Құрылған уақыты:</strong> <%= user.registrationDate %></p>
+</div>

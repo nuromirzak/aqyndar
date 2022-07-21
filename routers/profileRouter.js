@@ -10,4 +10,6 @@ router.get('/edit', helpers.isAuth, profileController.displayProfileEdit);
 router.post('/edit', helpers.isAuth, cloudinaryConfig.upload.single("profilepic"), profileController.profileEdit);
 router.post('/edit_password', helpers.isAuth, profileController.passwordChange);
 
+router.get('/id/:id', profileController.displayOthersProfile);
+
 module.exports = router;

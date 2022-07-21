@@ -8,4 +8,8 @@
 - [ ] Make an admin be able to view unmoderated annotations
 - [x] Add likes/dislikes to poems
 - [ ] Handle overflow of the bootstrap cards
-- [ ] Add a not found page
+- [x] Add a not found page
+- [ ] Add a user profile page
+- [ ] Add a passport.js login system
+- [ ] Add a login with Google/Facebook
+- [ ] Add forgot password functionality

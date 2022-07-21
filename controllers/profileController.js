@@ -2,8 +2,9 @@ const Annotation = require("../models/annotation");
 const User = require("../models/user");
 const moment = require("moment");
 const bcrypt = require("bcrypt");
-const config = require("../config");
-const AppError = require("../AppError");
+const mongoose = require("mongoose");
+
+moment.locale('kk');
 
 // Controller that displays the profile page
 const displayProfile = async (req, res, next) => {
@@ -128,9 +129,38 @@ const passwordChange = async (req, res) => {
     res.redirect("/profile");
 };
 
+// View another user's profile
+const displayOthersProfile = async (req, res) => {
+    const id = req.params.id;
+
+    if (id === req.session.user_id) {
+        res.redirect("/profile");
+        return;
+    }
+
+    if (!mongoose.isValidObjectId(id)) {
+        res.status(400).send("Қате форматтағы id");
+        return;
+    }
+
+    // Find the user
+    let user = await User.findById(id);
+
+    const formattedDate = moment(user.registrationDate).format("LLL");
+    // change registrationDate to a formatted date
+    user = {...user.toObject(), registrationDate: formattedDate};
+
+    res.render("auth/profile_others", {
+        title: user.username,
+        isLogged: Boolean(req.session.user_id),
+        user: user,
+    })
+};
+
 module.exports = {
     displayProfile,
     displayProfileEdit,
     profileEdit,
     passwordChange,
+    displayOthersProfile,
 };

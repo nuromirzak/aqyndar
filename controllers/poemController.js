@@ -122,7 +122,9 @@ const displayPoem = async (req, res) => {
                 poem.annotations[i].push(annotation);
             }
         } else {
-            poem.annotations[i].push("Бүл жолға әлі аннотация жоқ");
+            poem.annotations[i].push({
+                content: "Бұл жолға әлі аннотация жоқ.",
+            });
         }
     }
 

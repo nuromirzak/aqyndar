@@ -46,7 +46,7 @@
             <% if (poem.array[j].trim().length === 0) { %>
                 <br>
             <% } else { %>
-                <% if (poem.annotations[j][0] === "Бүл жолға әлі аннотация жоқ") { %>
+                <% if (poem.annotations[j][0].content === "Бұл жолға әлі аннотация жоқ.") { %>
                     <p data-bs-toggle="modal"
                        data-bs-target="#exampleModal<%= j %>"><%= poem.array[j] %></p>
                 <% } else { %>
@@ -68,8 +68,8 @@
 
                                 <% for (let annotation of poem.annotations[j]) { %>
                                     <div>
-                                        <p><%= annotation.content %> <span
-                                                    class="text-muted"><%= annotation.owner %></span></p>
+                                        <p><%= annotation.content %> <a href="/profile/id/<%= annotation.user_id %>"
+                                                    class="text-muted"><%= annotation.owner %></a></p>
                                     </div>
                                 <% } %>
 
