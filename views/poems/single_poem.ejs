@@ -1,8 +1,6 @@
 <% layout("layouts/boilerplate") %>
 <div class="row">
-
-    <div class="col-md-6 offset-md-3">
-
+    <div class="col-md-6">
         <p class="display-3" onclick="location.href='/poems/<%= poem._id %>';"
            style="cursor: pointer;"><%= poem.title %>
             <a class="btn btn-primary" href="/annotations/new?poem_id=<%= poem.id %>" role="button">Аннотация
@@ -41,49 +39,44 @@
         <% } %>
 
         <p class="display-6"><%= poem.authorName %></p>
+    </div>
 
-        <% for (let j = 0; j < poem.array.length; j++) { %>
-            <% if (poem.array[j].trim().length === 0) { %>
-                <br>
-            <% } else { %>
-                <% if (poem.annotations[j][0].content === "Бұл жолға әлі аннотация жоқ.") { %>
-                    <p data-bs-toggle="modal"
-                       data-bs-target="#exampleModal<%= j %>"><%= poem.array[j] %></p>
+    <div class="col-12 row">
+        <div class="col-6">
+            <% for (let j = 0; j < poem.array.length; j++) { %>
+                <% if (poem.array[j].trim().length === 0) { %>
+                    <br>
                 <% } else { %>
-                    <p data-bs-toggle="modal" data-bs-target="#exampleModal<%= j %>">
-                        <span class="custom-green"><%= poem.array[j] %></span>
-                    </p>
+                    <% if (poem.annotations[j][0].content === "Бұл жолға әлі аннотация жоқ.") { %>
+                        <p data-bs-toggle="collapse" data-bs-target="#collapseExample<%= j %>" aria-expanded="false"
+                           aria-controls="collapseExample<%= j %>"><%= poem.array[j] %>
+                        </p>
+                    <% } else { %>
+                        <p data-bs-toggle="collapse" data-bs-target="#collapseExample<%= j %>">
+                            <span class="custom-green"><%= poem.array[j] %></span>
+                        </p>
+                    <% } %>
                 <% } %>
-                <div class="modal fade" id="exampleModal<%= j %>" tabindex="-1"
-                     aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Бұл аннотация</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
+            <% } %>
+        </div>
 
-                                <% for (let annotation of poem.annotations[j]) { %>
-                                    <div>
-                                        <p><%= annotation.content %> <a href="/profile/id/<%= annotation.user_id %>"
-                                                    class="text-muted"><%= annotation.owner %></a></p>
-                                    </div>
-                                <% } %>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Жабу
-                                </button>
-                            </div>
+        <div class="col-6">
+            <% for (let j = 0; j < poem.array.length; j++) { %>
+                <% if (poem.array[j].trim().length !== 0) { %>
+                    <div class="collapse" id="collapseExample<%= j %>">
+                        <div class="card card-body">
+                            <% for (let annotation of poem.annotations[j]) { %>
+                                <div>
+                                    <p class="mb-0"><%= annotation.content %> <a
+                                                href="/profile/id/<%= annotation.user_id %>"
+                                                class="text-muted"><%= annotation.owner %></a></p>
+                                </div>
+                            <% } %>
                         </div>
                     </div>
-                </div>
+                <% } %>
             <% } %>
-        <% } %>
-
+        </div>
     </div>
 
 </div>
