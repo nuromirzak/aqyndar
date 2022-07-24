@@ -12,7 +12,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: (req, file) => {
         return {
-            folder: 'zerdeleu-images',
+            folder: 'aqyndar-images',
             allowedFormats: ['jpg', 'png', 'jpeg'],
         }
     }

@@ -1,82 +1,90 @@
 <% layout("layouts/boilerplate") %>
 <div class="row">
-    <div class="col-md-6">
-        <p class="display-3" onclick="location.href='/poems/<%= poem._id %>';"
-           style="cursor: pointer;"><%= poem.title %>
-            <a class="btn btn-primary" href="/annotations/new?poem_id=<%= poem.id %>" role="button">Аннотация
-                қосу</a>
-
-            <% if (poem.canEdit) { %>
-                <a class="btn btn-danger" href="/poems/delete?id=<%= poem.id %>" role="button">Жою</a>
-                <a class="btn btn-secondary" href="/poems/edit?id=<%= poem.id %>" role="button">Өзгерту</a>
-            <% } %>
-
-            <% if (isLogged) { %>
-                <% if (liked) { %>
-                    <a class="btn btn-danger" href="/poems/like?id=<%= poem.id %>" role="button">Unlike</a>
-                <% } else { %>
-                    <a class="btn btn-primary" href="/poems/like?id=<%= poem.id %>" role="button">Like</a>
-                <% } %>
-            <% } %>
-        </p>
+    <div class="col-md-6 mb-3">
+        <% if (edit_info) { %>
+            <div class="alert alert-info mb-0" role="alert">
+                <%= edit_info %>
+            </div>
+        <% } %>
 
         <% if (like_info) { %>
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-info mb-0" role="alert">
                 <%= like_info %>
             </div>
         <% } %>
 
+        <p class="display-3 mb-0" onclick="location.href='/poems/<%= poem._id %>';"
+           style="cursor: pointer;"><%= poem.title %></p>
+
+        <p class="display-6 mb-2"><a href="/authors/<%= poem.author_id %>" class="text-muted"><%= poem.authorName %></a></p>
+
+        <div class="mb-2" id="crud-panel">
+            <a class="btn btn-primary me-2" href="/annotations/new?poem_id=<%= poem.id %>" role="button">Аннотация
+                қосу</a>
+
+            <% if (poem.canEdit) { %>
+                <a class="btn btn-danger me-2" href="/poems/delete?id=<%= poem.id %>" role="button">Жою</a>
+                <a class="btn btn-secondary me-2" href="/poems/edit?id=<%= poem.id %>" role="button">Өзгерту</a>
+            <% } %>
+
+            <% if (isLogged) { %>
+                <% if (liked) { %>
+                    <a class="btn btn-danger me-2" href="/poems/like?id=<%= poem.id %>" role="button">Unlike</a>
+                <% } else { %>
+                    <a class="btn btn-primary me-2" href="/poems/like?id=<%= poem.id %>" role="button">Like</a>
+                <% } %>
+            <% } %>
+        </div>
+
         <% if (poem.yt_id) { %>
-            <div class="video-container mb-3">
+            <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/<%= poem.yt_id %>" frameborder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
             </div>
         <% } else { %>
             <div class="mb-3">
-                <p>Бұл поэмаға әлі видео қосылған жоқ.</p>
+                <p class="mb-0">Бұл поэмаға әлі видео қосылған жоқ.</p>
             </div>
         <% } %>
-
-        <p class="display-6"><%= poem.authorName %></p>
     </div>
 
-    <div class="col-12 row">
-        <div class="col-6">
-            <% for (let j = 0; j < poem.array.length; j++) { %>
-                <% if (poem.array[j].trim().length === 0) { %>
-                    <br>
-                <% } else { %>
-                    <% if (poem.annotations[j][0].content === "Бұл жолға әлі аннотация жоқ.") { %>
-                        <p data-bs-toggle="collapse" data-bs-target="#collapseExample<%= j %>" aria-expanded="false"
-                           aria-controls="collapseExample<%= j %>"><%= poem.array[j] %>
-                        </p>
-                    <% } else { %>
-                        <p data-bs-toggle="collapse" data-bs-target="#collapseExample<%= j %>">
-                            <span class="custom-green"><%= poem.array[j] %></span>
-                        </p>
-                    <% } %>
-                <% } %>
-            <% } %>
-        </div>
+    <div class="col-12">
+        <% for (let j = 0; j < poem.array.length; j++) { %>
+            <% if (poem.array[j].trim().length === 0) { %>
+                <br>
+            <% } else { %>
+                <div class="row">
+                    <div class="col-md-6">
+                        <% if (poem.annotations[j][0].content === "Бұл жолға әлі аннотация жоқ.") { %>
+                            <p class="px-2 py-1 mb-1 rounded" data-bs-toggle="collapse"
+                               data-bs-target="#collapseExample<%= j %>"
+                               aria-expanded="false"
+                               aria-controls="collapseExample<%= j %>"><%= poem.array[j] %>
+                            </p>
+                        <% } else { %>
+                            <p class="px-2 py-1 mb-1 rounded has-annotation" data-bs-toggle="collapse"
+                               data-bs-target="#collapseExample<%= j %>"><%= poem.array[j] %>
+                            </p>
+                        <% } %>
+                    </div>
 
-        <div class="col-6">
-            <% for (let j = 0; j < poem.array.length; j++) { %>
-                <% if (poem.array[j].trim().length !== 0) { %>
-                    <div class="collapse" id="collapseExample<%= j %>">
-                        <div class="card card-body">
-                            <% for (let annotation of poem.annotations[j]) { %>
-                                <div>
-                                    <p class="mb-0"><%= annotation.content %> <a
-                                                href="/profile/id/<%= annotation.user_id %>"
-                                                class="text-muted"><%= annotation.owner %></a></p>
-                                </div>
-                            <% } %>
+                    <div class="col-md-6">
+                        <div class="collapse mb-1" id="collapseExample<%= j %>">
+                            <div class="card card-body p-3 rounded">
+                                <% for (let annotation of poem.annotations[j]) { %>
+                                    <div>
+                                        <p class="mb-0"><%= annotation.content %> <a
+                                                    href="/profile/id/<%= annotation.user_id %>"
+                                                    class="text-muted"><%= annotation.owner %></a></p>
+                                    </div>
+                                <% } %>
+                            </div>
                         </div>
                     </div>
-                <% } %>
+                </div>
             <% } %>
-        </div>
+        <% } %>
     </div>
 
 </div>

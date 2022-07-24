@@ -26,7 +26,7 @@
                 <th scope="row"><%= i + 1 %></th>
                 <td onclick="location.href='/poems/<%= poems[i]._id %>';"
                     style="cursor: pointer;"><%= poems[i].title %></td>
-                <td><%= poems[i].authorName %></td>
+                <td><a class="text-muted" href="/authors/<%= poems[i].author_id %>"><%= poems[i].authorName %></a></td>
                 <td><%= poems[i].likes %></td>
             </tr>
 

@@ -1,9 +1,8 @@
-.custom-green {
-    background-color: #0d6efd;
-    color: white;
+.has-annotation {
+    background-color: #ffff96;
 }
 
-.card-title {
+#home-cards .card-title {
     color: #ff5353 !important;
 }
 
@@ -14,7 +13,7 @@
 .video-container {
     overflow: hidden;
     position: relative;
-    width:100%;
+    width: 100%;
 }
 
 .video-container::after {

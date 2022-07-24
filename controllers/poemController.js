@@ -140,6 +140,8 @@ const displayPoem = async (req, res) => {
 
     const liked = poem.liked.get(req.session.user_id);
 
+    const edit_info = req.flash("edit_info");
+
     const like_info = req.flash("like_info");
 
     // Render poem
@@ -149,6 +151,7 @@ const displayPoem = async (req, res) => {
         liked: liked,
         isLogged: Boolean(req.session.user_id),
         like_info: like_info[0],
+        edit_info: edit_info[0],
     });
 }
 
@@ -242,6 +245,8 @@ const savePoem = async (req, res) => {
         await poemToUpdate.save();
 
         req.flash("edit_info", "Өлең сәтті жаңартылды");
+
+        res.redirect(`/poems/${id}`);
     } else {
         // Create new poem
         const poem2 = new Poem({
@@ -257,10 +262,9 @@ const savePoem = async (req, res) => {
         await poem2.save();
 
         req.flash("edit_info", "Өлең сәтті құрылды");
-    }
 
-    // Redirect to all poems page
-    res.redirect("/poems");
+        res.redirect("/poems");
+    }
 };
 
 // Controller that deletes a poem

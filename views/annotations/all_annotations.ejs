@@ -16,7 +16,7 @@
 
             <tr>
                 <th scope="row"><%= i + 1 %></th>
-                <td><%= annotations[i].poemName %></td>
+                <td><a class="text-muted" href="/poems/<%= annotations[i].poem_id %>"><%= annotations[i].poemName %></a></td>
                 <td><%= annotations[i].line_number %></td>
                 <td><%= annotations[i].content %></td>
             </tr>
