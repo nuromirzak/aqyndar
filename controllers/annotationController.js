@@ -1,5 +1,6 @@
 const Poem = require("../models/poem");
 const Annotation = require("../models/annotation");
+const mongoose = require("mongoose");
 
 // Controller for displaying all annotations
 const displayAllAnnotations = async (req, res) => {
@@ -38,8 +39,14 @@ const displayAddAnnotation = async (req, res) => {
     // Get the poem id from the query params
     const id = req.query.poem_id;
 
-    // Get the poem
-    const poem = await Poem.findById(id);
+    // Get the line number
+    const line_number = req.query.line_number;
+
+    let poem;
+        // Get the poem
+    if (mongoose.isValidObjectId(id)) {
+        poem = await Poem.findById(id);
+    }
 
     // If poem doesn't exist, send message to user
     if (!poem) {
@@ -47,13 +54,16 @@ const displayAddAnnotation = async (req, res) => {
         return;
     }
 
+    const lines = poem.poem.split("\r\n");
+
     // Render the add annotation page
     res.render("annotations/add_annotation", {
         title: "Аннотация қосу",
         isLogged: Boolean(req.session.user_id),
         id: id,
         poemName: poem.title,
-        lines: poem.poem.split("\r\n"),
+        line_number: parseInt(line_number),
+        lines: lines,
     });
 };
 
@@ -78,8 +88,10 @@ const addAnnotation = async (req, res) => {
     // Save the annotation
     await annotation2.save();
 
+    req.flash("annotation_info", "Аннотация сәтті қосылды");
+
     // Redirect to the all poems page
-    res.redirect("/poems");
+    res.redirect(`/poems/${poem_id}`);
 };
 
 module.exports = {

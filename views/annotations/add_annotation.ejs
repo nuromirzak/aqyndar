@@ -13,7 +13,11 @@
             <option value="">Жолды таңдаңыз</option>
             <% for (let i = 0; i < lines.length; i++) { %>
                 <% if (lines[i]) { %>
-                    <option value="<%= i %>"><%= lines[i] %></option>
+                    <% if (i === line_number) { %>
+                        <option value="<%= i %>" selected><%= lines[i] %></option>
+                    <% } else { %>
+                        <option value="<%= i %>"><%= lines[i] %></option>
+                    <% } %>
                 <% } %>
             <% } %>
         </select>

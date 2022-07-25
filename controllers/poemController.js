@@ -144,6 +144,8 @@ const displayPoem = async (req, res) => {
 
     const like_info = req.flash("like_info");
 
+    const annotation_info = req.flash("annotation_info");
+
     // Render poem
     res.render("poems/single_poem", {
         title: poem.title,
@@ -152,6 +154,7 @@ const displayPoem = async (req, res) => {
         isLogged: Boolean(req.session.user_id),
         like_info: like_info[0],
         edit_info: edit_info[0],
+        annotation_info: annotation_info[0],
     });
 }
 

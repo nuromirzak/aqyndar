@@ -3,6 +3,7 @@ const User = require("../models/user");
 const moment = require("moment");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+const Poem = require("../models/poem");
 
 moment.locale('kk');
 
@@ -10,6 +11,25 @@ moment.locale('kk');
 const displayProfile = async (req, res, next) => {
     // Find all annotations of the user
     const annotations = await Annotation.find({user_id: req.session.user_id});
+
+    const annotationToTitle = new Map();
+
+    // Add the author of each annotation to the annotation
+    for (let i = 0; i < annotations.length; i++) {
+        const annotation = annotations[i];
+
+        let title;
+
+        if (annotationToTitle.has(annotation.poem_id)) {
+            title = annotationToTitle.get(annotation.poem_id);
+        } else {
+            const poem = await Poem.findById(annotation.poem_id);
+            annotationToTitle.set(annotation.poem_id, poem.title);
+            title = annotationToTitle.get(annotation.poem_id);
+        }
+
+        annotation.title = title;
+    }
 
     let user = await User.findById(req.session.user_id);
 

@@ -42,7 +42,9 @@
     <ul class="list-group">
         <% for (let i = 0; i < annotations.length; i++) { %>
 
-            <li class="list-group-item"><%= annotations[i].content %></li>
+            <li class="list-group-item"><%= annotations[i].content %> <a href="/poems/<%= annotations[i].poem_id %>"
+                                                                         class="text-muted"><%= annotations[i].title %></a>
+            </li>
 
         <% } %>
     </ul>

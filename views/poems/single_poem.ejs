@@ -13,10 +13,17 @@
             </div>
         <% } %>
 
+        <% if (annotation_info) { %>
+            <div class="alert alert-info mb-0" role="alert">
+                <%= annotation_info %>
+            </div>
+        <% } %>
+
         <p class="display-3 mb-0" onclick="location.href='/poems/<%= poem._id %>';"
            style="cursor: pointer;"><%= poem.title %></p>
 
-        <p class="display-6 mb-2"><a href="/authors/<%= poem.author_id %>" class="text-muted"><%= poem.authorName %></a></p>
+        <p class="display-6 mb-2"><a href="/authors/<%= poem.author_id %>" class="text-muted"><%= poem.authorName %></a>
+        </p>
 
         <div class="mb-2" id="crud-panel">
             <a class="btn btn-primary me-2" href="/annotations/new?poem_id=<%= poem.id %>" role="button">Аннотация
@@ -79,6 +86,12 @@
                                                     class="text-muted"><%= annotation.owner %></a></p>
                                     </div>
                                 <% } %>
+                                <div class="pt-3">
+                                    <a class="btn btn-info"
+                                       href="/annotations/new?poem_id=<%= poem._id %>&line_number=<%= j %>"
+                                       role="button">Аннотация қосу
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
