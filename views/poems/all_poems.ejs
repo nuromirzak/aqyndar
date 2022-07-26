@@ -23,7 +23,7 @@
         <% for (let i = 0; i < poems.length; i++) { %>
 
             <tr>
-                <th scope="row"><%= i + 1 %></th>
+                <th scope="row"><%= start + i %></th>
                 <td onclick="location.href='/poems/<%= poems[i]._id %>';"
                     style="cursor: pointer;"><%= poems[i].title %></td>
                 <td><a class="text-muted" href="/authors/<%= poems[i].author_id %>"><%= poems[i].authorName %></a></td>
@@ -33,4 +33,28 @@
         <% } %>
         </tbody>
     </table>
+
+    <div aria-label="Page navigation example">
+        <ul class="pagination pagination-sm flex-sm-wrap">
+            <% if (page > 1) { %>
+                <li class="page-item"><a class="page-link" href="/poems?page=<%= page - 1 %>">Алдыңғы</a></li>
+            <% } else { %>
+                <li class="page-item disabled"><a class="page-link" href="#">Алдыңғы</a></li>
+            <% } %>
+
+            <% for (let i = 1; i <= (count / 20); i++) { %>
+                <% if (i === page) { %>
+                    <li class="page-item active"><a class="page-link" href="/poems?page=<%= i %>"><%= i %></a></li>
+                <% } else { %>
+                    <li class="page-item"><a class="page-link" href="/poems?page=<%= i %>"><%= i %></a></li>
+                <% } %>
+            <% } %>
+
+            <% if (page < count / 20) { %>
+                <li class="page-item"><a class="page-link" href="/poems?page=<%= page + 1 %>">Келесі</a></li>
+            <% } else { %>
+                <li class="page-item disabled"><a class="page-link" href="#">Келесі</a></li>
+            <% } %>
+        </ul>
+    </div>
 </div>

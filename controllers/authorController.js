@@ -232,6 +232,10 @@ const displayAuthor = async (req, res) => {
         return;
     }
 
+    if (req.session.user_id) {
+        author.canEdit = helpers.hasAccess(author.user_id, req.session.user_id);
+    }
+
     // Render the author page
     res.render("authors/single_author", {
         title: author.fullname,

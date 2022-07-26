@@ -8,8 +8,18 @@ const User = require("../models/user");
 
 // Controller that displays all poems
 const displayAllPoems = async (req, res) => {
-    // Find all poems
-    const poems = await Poem.find({});
+    let {page = "1"} = req.query;
+
+    page = Number(page);
+    const limit = 20;
+
+    console.log(page, limit);
+
+    // Paginate poems
+    const poems = await Poem.find({}, null, {
+        skip: (page - 1) * limit,
+        limit: limit,
+    });
 
     for (let poem of poems) {
         // Find author of this poem
@@ -30,18 +40,20 @@ const displayAllPoems = async (req, res) => {
         poem.likes = likes;
     }
 
-    // Sort poems by likes
-    poems.sort((a, b) => b.likes - a.likes);
-
     const edit_info = req.flash("edit_info");
 
     const delete_info = req.flash("delete_info");
+
+    const count = await Poem.countDocuments();
 
     // Render all poems
     res.render("poems/all_poems", {
         title: "Бүкіл өлеңдер",
         isLogged: Boolean(req.session.user_id),
         poems: poems,
+        start: (page - 1) * limit + 1,
+        page: page,
+        count: count,
         edit_info: edit_info[0],
         delete_info: delete_info[0],
     });

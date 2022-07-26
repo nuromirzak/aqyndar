@@ -5,9 +5,11 @@
              style="width: 240px; height: 240px; object-fit: cover;">
     </div>
 
-    <p class="display-5">Толық аты: <%= author.fullname %> <a class="btn btn-primary"
-                                                              href="/authors/edit?id=<%= author.id %>" role="button">Авторды
-            өзгерту</a></p>
+    <p class="display-5">Толық аты: <%= author.fullname %>
+        <% if (author.canEdit) { %>
+            <a class="btn btn-primary" href="/authors/edit?id=<%= author.id %>" role="button">Авторды өзгерту</a>
+        <% } %>
+    </p>
 
     <hr>
 
