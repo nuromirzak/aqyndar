@@ -1,5 +1,6 @@
 const Poem = require("./models/poem");
 const Annotation = require("./models/annotation");
+const mongoose = require("mongoose");
 const compareObjectIds = (id1, id2) => {
     return JSON.stringify(id1) === JSON.stringify(id2);
 }
@@ -23,9 +24,14 @@ const youtube_parser = (url) => {
     return (match&&match[7].length===11)? match[7] : false;
 };
 
+const randomObjectId = () => {
+    return new mongoose.Types.ObjectId();
+}
+
 module.exports = {
     compareObjectIds,
     isAuth,
     youtube_parser,
-    hasAccess
+    hasAccess,
+    randomObjectId
 }

@@ -7,7 +7,15 @@ const config = require("../config");
 
 // Controller for displaying all authors
 const displayAllAuthors = async (req, res) => {
-    const authors = await Author.find({});
+    let {page = "1"} = req.query;
+
+    page = Number(page);
+    const limit = 20;
+
+    const authors = await Author.find({}, null, {
+        skip: (page - 1) * limit,
+        limit: limit,
+    });
 
     for (let author of authors) {
         // Check if the user has access to the author
@@ -16,25 +24,19 @@ const displayAllAuthors = async (req, res) => {
         }
     }
 
-    // Sort the authors by lexicographic order
-    authors.sort((a, b) => {
-        if (a.fullname < b.fullname) {
-            return -1;
-        }
-        if (a.fullname > b.fullname) {
-            return 1;
-        }
-        return 0;
-    });
-
     const update_info = req.flash("update_info");
     const delete_info = req.flash("delete_info");
+
+    const count = await Author.countDocuments();
 
     // Render the all authors page
     res.render("authors/all_authors", {
         title: "Бүкіл авторлар",
-        authors,
+        authors: authors,
         isLogged: Boolean(req.session.user_id),
+        start: (page - 1) * limit + 1,
+        page: page,
+        numberOfPages: Math.ceil(count / limit),
         update_info: update_info[0],
         delete_info: delete_info[0],
     });

@@ -13,8 +13,6 @@ const displayAllPoems = async (req, res) => {
     page = Number(page);
     const limit = 20;
 
-    console.log(page, limit);
-
     // Paginate poems
     const poems = await Poem.find({}, null, {
         skip: (page - 1) * limit,
@@ -53,7 +51,7 @@ const displayAllPoems = async (req, res) => {
         poems: poems,
         start: (page - 1) * limit + 1,
         page: page,
-        count: count,
+        numberOfPages: Math.ceil(count / limit),
         edit_info: edit_info[0],
         delete_info: delete_info[0],
     });

@@ -4,8 +4,16 @@ const mongoose = require("mongoose");
 
 // Controller for displaying all annotations
 const displayAllAnnotations = async (req, res) => {
-    // Get all annotations
-    const annotations = await Annotation.find({});
+    let {page = "1"} = req.query;
+
+    page = Number(page);
+    const limit = 20;
+
+    // Paginate annotations
+    const annotations = await Annotation.find({}, null, {
+        skip: (page - 1) * limit,
+        limit: limit,
+    });
 
     for (let i = 0; i < annotations.length; i++) {
         // Get the poem title for each annotation
@@ -14,11 +22,16 @@ const displayAllAnnotations = async (req, res) => {
         annotations[i].poemName = poem.title;
     }
 
+    const count = await Annotation.countDocuments();
+
     // Render the all annotations page
     res.render("annotations/all_annotations", {
         title: "All Annotations",
         isLogged: Boolean(req.session.user_id),
         annotations: annotations,
+        start: (page - 1) * limit + 1,
+        page: page,
+        numberOfPages: Math.ceil(count / limit),
     });
 };
 

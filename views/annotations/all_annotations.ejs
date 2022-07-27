@@ -15,8 +15,9 @@
         <% for (let i = 0; i < annotations.length; i++) { %>
 
             <tr>
-                <th scope="row"><%= i + 1 %></th>
-                <td><a class="text-muted" href="/poems/<%= annotations[i].poem_id %>"><%= annotations[i].poemName %></a></td>
+                <th scope="row"><%= start + i %></th>
+                <td><a class="text-muted" href="/poems/<%= annotations[i].poem_id %>"><%= annotations[i].poemName %></a>
+                </td>
                 <td><%= annotations[i].line_number %></td>
                 <td><%= annotations[i].content %></td>
             </tr>
@@ -24,4 +25,29 @@
         <% } %>
         </tbody>
     </table>
+
+    <div aria-label="Page navigation example">
+        <ul class="pagination pagination-sm flex-sm-wrap">
+            <% if (page > 1) { %>
+                <li class="page-item"><a class="page-link" href="/annotations?page=<%= page - 1 %>">Алдыңғы</a></li>
+            <% } else { %>
+                <li class="page-item disabled"><a class="page-link" href="#">Алдыңғы</a></li>
+            <% } %>
+
+            <% for (let i = 1; i <= numberOfPages; i++) { %>
+                <% if (i === page) { %>
+                    <li class="page-item active"><a class="page-link" href="/annotations?page=<%= i %>"><%= i %></a>
+                    </li>
+                <% } else { %>
+                    <li class="page-item"><a class="page-link" href="/annotations?page=<%= i %>"><%= i %></a></li>
+                <% } %>
+            <% } %>
+
+            <% if (page < numberOfPages) { %>
+                <li class="page-item"><a class="page-link" href="/annotations?page=<%= page + 1 %>">Келесі</a></li>
+            <% } else { %>
+                <li class="page-item disabled"><a class="page-link" href="#">Келесі</a></li>
+            <% } %>
+        </ul>
+    </div>
 </div>
