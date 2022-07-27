@@ -9,8 +9,22 @@ moment.locale('kk');
 
 // Controller that displays the profile page
 const displayProfile = async (req, res, next) => {
-    // Find all annotations of the user
-    const annotations = await Annotation.find({user_id: req.session.user_id});
+    let {page = "1"} = req.query;
+
+    page = Number(page);
+    const limit = 5;
+
+    // Paginate poems
+    const poems = await Poem.find({}, null, {
+        skip: (page - 1) * limit,
+        limit: limit,
+    });
+
+    // Paginate annotations of the user
+    const annotations = await Annotation.find({user_id: req.session.user_id}, null, {
+        skip: (page - 1) * limit,
+        limit: limit,
+    });
 
     const annotationToTitle = new Map();
 
@@ -40,12 +54,17 @@ const displayProfile = async (req, res, next) => {
     const update_info = req.flash("update_info");
     const sign_in = req.flash("sign_in");
 
+    const count = await Annotation.countDocuments({user_id: req.session.user_id});
+
     // Render the profile page
     res.render("auth/profile", {
         title: "Жеке профиль",
         isLogged: Boolean(req.session.user_id),
         user: user,
         annotations: annotations,
+        start: (page - 1) * limit + 1,
+        page: page,
+        numberOfPages: Math.ceil(count / limit),
         update_info: update_info[0],
         sign_in: sign_in[0],
     });
