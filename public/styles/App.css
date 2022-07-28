@@ -1,13 +1,13 @@
+* {
+    font-family: 'Ubuntu', sans-serif;
+}
+
 .has-annotation {
     background-color: #ffff96;
 }
 
 #home-cards .card-title {
     color: #ff5353 !important;
-}
-
-* {
-    font-family: 'Ubuntu', sans-serif;
 }
 
 .video-container {
@@ -28,4 +28,8 @@
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.header {
+    font-weight: 700;
 }

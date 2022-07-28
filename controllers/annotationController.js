@@ -36,14 +36,27 @@ const displayAllAnnotations = async (req, res) => {
 };
 
 const displayPoemsForAddingAnnotation = async (req, res) => {
-    // Get all poems
-    const poems = await Poem.find({});
+    let {page = "1"} = req.query;
+
+    page = Number(page);
+    const limit = 20;
+
+    // Paginate poems
+    const poems = await Poem.find({}, null, {
+        skip: (page - 1) * limit,
+        limit: limit,
+    });
+
+    const count = await Poem.countDocuments();
 
     // Render the add annotation page
     res.render("annotations/poems_for_annotations", {
         title: "Аннотация қосу",
         isLogged: Boolean(req.session.user_id),
         poems: poems,
+        start: (page - 1) * limit + 1,
+        page: page,
+        numberOfPages: Math.ceil(count / limit),
     });
 };
 

@@ -13,7 +13,7 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown mx-2">
                     <a class="nav-link dropdown-toggle" href="#" id="poemsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Өлеңдер
                     </a>
@@ -24,7 +24,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown mx-2">
                     <a class="nav-link dropdown-toggle" href="#" id="authorsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Авторлар
                     </a>
@@ -35,7 +35,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown mx-2">
                     <a class="nav-link dropdown-toggle" href="#" id="annotationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Аннотациялар
                     </a>
@@ -46,12 +46,12 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/faq">FAQ-лар</a>
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="/faq">FAQ</a>
                 </li>
 
                 <% if (isLogged) { %>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown mx-2">
                         <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -69,10 +69,10 @@
                         </ul>
                     </li>
                 <% } else { %>
-                    <li class="nav-item me-lg-1 mb-1 mb-lg-0">
+                    <li class="nav-item mx-2">
                         <a class="btn btn-primary" href="/sign_in">Профильге кіру</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mx-2">
                         <a class="btn btn-primary" href="/sign_up">Регистрация</a>
                     </li>
                 <% } %>

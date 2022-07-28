@@ -1,16 +1,40 @@
 <% layout("layouts/boilerplate") %>
 <div class="row">
-    <div class="col-md-6 offset-md-3">
-        <p class="display-6">Аннотациялар қосқыңыз келетін өлеңді таңдаңыз</p>
+    <div class="col-md-6">
+        <p class="header display-6">Аннотациялар қосқыңыз келетін өлеңді таңдаңыз</p>
 
-        <ul class="list-group">
+        <ul class="list-group mb-3">
             <% for (let i = 0; i < poems.length; i++) { %>
 
-                <li class="list-group-item display-6" onclick="location.href='/annotations/new?poem_id=<%= poems[i]._id %>';"
+                <li class="list-group-item" onclick="location.href='/annotations/new?poem_id=<%= poems[i]._id %>';"
                     style="cursor: pointer;"><%= poems[i].title %>
                 </li>
 
             <% } %>
         </ul>
+
+        <div aria-label="Page navigation example">
+            <ul class="pagination pagination-sm flex-sm-wrap">
+                <% if (page > 1) { %>
+                    <li class="page-item"><a class="page-link" href="/annotations/add?page=<%= page - 1 %>">Алдыңғы</a></li>
+                <% } else { %>
+                    <li class="page-item disabled"><a class="page-link" href="#">Алдыңғы</a></li>
+                <% } %>
+
+                <% for (let i = 1; i <= numberOfPages; i++) { %>
+                    <% if (i === page) { %>
+                        <li class="page-item active"><a class="page-link" href="/annotations/add?page=<%= i %>"><%= i %></a></li>
+                    <% } else { %>
+                        <li class="page-item"><a class="page-link" href="/annotations/add?page=<%= i %>"><%= i %></a></li>
+                    <% } %>
+                <% } %>
+
+                <% if (page < numberOfPages) { %>
+                    <li class="page-item"><a class="page-link" href="/annotations/add?page=<%= page + 1 %>">Келесі</a></li>
+                <% } else { %>
+                    <li class="page-item disabled"><a class="page-link" href="#">Келесі</a></li>
+                <% } %>
+            </ul>
+        </div>
     </div>
 </div>

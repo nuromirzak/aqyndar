@@ -2,24 +2,24 @@
 <div class="row">
     <div class="col-md-6 mb-3">
         <% if (edit_info) { %>
-            <div class="alert alert-info mb-0" role="alert">
+            <div class="alert alert-success mb-0" role="alert">
                 <%= edit_info %>
             </div>
         <% } %>
 
         <% if (like_info) { %>
-            <div class="alert alert-info mb-0" role="alert">
+            <div class="alert alert-success mb-0" role="alert">
                 <%= like_info %>
             </div>
         <% } %>
 
         <% if (annotation_info) { %>
-            <div class="alert alert-info mb-0" role="alert">
+            <div class="alert alert-success mb-0" role="alert">
                 <%= annotation_info %>
             </div>
         <% } %>
 
-        <p class="display-3 mb-0" onclick="location.href='/poems/<%= poem._id %>';"
+        <p class="header display-3 mb-0" onclick="location.href='/poems/<%= poem._id %>';"
            style="cursor: pointer;"><%= poem.title %></p>
 
         <p class="display-6 mb-2"><a href="/authors/<%= poem.author_id %>" class="text-muted"><%= poem.authorName %></a>
@@ -36,9 +36,11 @@
 
             <% if (isLogged) { %>
                 <% if (liked) { %>
-                    <a class="btn btn-danger me-2" href="/poems/like?id=<%= poem.id %>" role="button">Unlike</a>
+                    <a class="btn btn-lg me-2" href="/poems/like?id=<%= poem.id %>" role="button"><i
+                                class="bi bi-hand-thumbs-up-fill"></i></a>
                 <% } else { %>
-                    <a class="btn btn-primary me-2" href="/poems/like?id=<%= poem.id %>" role="button">Like</a>
+                    <a class="btn btn-lg me-2" href="/poems/like?id=<%= poem.id %>" role="button"><i
+                                class="bi bi-hand-thumbs-up"></i></a>
                 <% } %>
             <% } %>
         </div>

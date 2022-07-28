@@ -5,7 +5,7 @@
              style="width: 240px; height: 240px; object-fit: cover;">
     </div>
 
-    <p class="display-5">Толық аты: <%= author.fullname %>
+    <p class="header display-6"><%= author.fullname %>
         <% if (author.canEdit) { %>
             <a class="btn btn-primary" href="/authors/edit?id=<%= author.id %>" role="button">Авторды өзгерту</a>
         <% } %>
@@ -15,11 +15,13 @@
 
     <p>Лайктар саны: <%= author.likesNum %></p>
 
-    <hr>
+    <% if (author.biography) { %>
+        <hr>
 
-    <div>
-        Автордың биографиясы:
-        <br>
-        <%= author.biography %>
-    </div>
+        <div>
+            Автордың биографиясы:
+            <br>
+            <span class="lh-lg"><%= author.biography %></span>
+        </div>
+    <% } %>
 </div>

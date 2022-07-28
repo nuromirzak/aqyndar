@@ -1,10 +1,5 @@
 <% layout("layouts/boilerplate") %>
 <div class="col-md-6 offset-md-3 bg-light rounded shadow-lg p-3">
-    <div class="mb-3">
-        <img src="<%= user.profilePicture.url %>" alt="" class="img-thumbnail rounded-circle"
-             style="width: 240px; height: 240px; object-fit: cover;">
-    </div>
-
     <% if (update_info) { %>
         <div class="alert alert-success" role="alert"><%= update_info %></div>
     <% } %>
@@ -13,13 +8,14 @@
         <div class="alert alert-success" role="alert"><%= sign_in %></div>
     <% } %>
 
-    <p class="display-5">Пайдаланушы: <%= user.username %> <a class="btn btn-primary" href="/profile/edit"
-                                                              role="button">Профильді өзгерту</a>
+    <div class="mb-3">
+        <img src="<%= user.profilePicture.url %>" alt="" class="img-thumbnail rounded-circle"
+             style="width: 240px; height: 240px; object-fit: cover;">
+    </div>
+
+    <p class="header display-6"><%= user.username %> <a class="btn btn-primary" href="/profile/edit"
+                                                        role="button">Профильді өзгерту</a>
     </p>
-
-    <p><strong>Құпиясөз:</strong> <%= user.password %></p>
-
-    <hr>
 
     <p><strong>Email:</strong> <%= user.email %></p>
 
@@ -35,41 +31,45 @@
 
     <p><strong>Құрылған уақыты:</strong> <%= user.registrationDate %></p>
 
-    <hr>
+    <% if (annotations.length > 0) { %>
+        <hr>
 
-    <p><strong>Пайдаланушы аннотациялары:</strong></p>
+        <p><strong>Пайдаланушы аннотациялары:</strong></p>
 
-    <ul class="list-group mb-3">
-        <% for (let i = 0; i < annotations.length; i++) { %>
+        <ul class="list-group mb-3" start="<%= start %>">
+            <% for (let i = 0; i < annotations.length; i++) { %>
 
-            <li class="list-group-item"><%= annotations[i].content %> <a href="/poems/<%= annotations[i].poem_id %>"
-                                                                         class="text-muted"><%= annotations[i].title %></a>
-            </li>
+                <li class="list-group-item"><%= start + i %>. <%= annotations[i].content %> <a
+                            href="/poems/<%= annotations[i].poem_id %>"
+                            class="text-muted"><%= annotations[i].title %></a>
+                </li>
 
-        <% } %>
-    </ul>
-
-    <div aria-label="Page navigation example">
-        <ul class="pagination pagination-sm flex-sm-wrap">
-            <% if (page > 1) { %>
-                <li class="page-item"><a class="page-link" href="/profile?page=<%= page - 1 %>">Алдыңғы</a></li>
-            <% } else { %>
-                <li class="page-item disabled"><a class="page-link" href="#">Алдыңғы</a></li>
-            <% } %>
-
-            <% for (let i = 1; i <= numberOfPages; i++) { %>
-                <% if (i === page) { %>
-                    <li class="page-item active"><a class="page-link" href="/profile?page=<%= i %>"><%= i %></a></li>
-                <% } else { %>
-                    <li class="page-item"><a class="page-link" href="/profile?page=<%= i %>"><%= i %></a></li>
-                <% } %>
-            <% } %>
-
-            <% if (page < numberOfPages) { %>
-                <li class="page-item"><a class="page-link" href="/profile?page=<%= page + 1 %>">Келесі</a></li>
-            <% } else { %>
-                <li class="page-item disabled"><a class="page-link" href="#">Келесі</a></li>
             <% } %>
         </ul>
-    </div>
+
+        <div aria-label="Page navigation example">
+            <ul class="pagination pagination-sm flex-sm-wrap">
+                <% if (page > 1) { %>
+                    <li class="page-item"><a class="page-link" href="/profile?page=<%= page - 1 %>">Алдыңғы</a></li>
+                <% } else { %>
+                    <li class="page-item disabled"><a class="page-link" href="#">Алдыңғы</a></li>
+                <% } %>
+
+                <% for (let i = 1; i <= numberOfPages; i++) { %>
+                    <% if (i === page) { %>
+                        <li class="page-item active"><a class="page-link" href="/profile?page=<%= i %>"><%= i %></a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item"><a class="page-link" href="/profile?page=<%= i %>"><%= i %></a></li>
+                    <% } %>
+                <% } %>
+
+                <% if (page < numberOfPages) { %>
+                    <li class="page-item"><a class="page-link" href="/profile?page=<%= page + 1 %>">Келесі</a></li>
+                <% } else { %>
+                    <li class="page-item disabled"><a class="page-link" href="#">Келесі</a></li>
+                <% } %>
+            </ul>
+        </div>
+    <% } %>
 </div>

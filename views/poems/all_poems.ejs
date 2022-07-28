@@ -1,7 +1,5 @@
 <% layout("layouts/boilerplate") %>
-<div class="col-md-6 offset-md-3">
-    <p class="display-3">Бүкіл поэмалар</p>
-
+<div class="col-md-6">
     <% if (edit_info) { %>
         <div class="alert alert-success" role="alert"><%= edit_info %></div>
     <% } %>
@@ -9,6 +7,8 @@
     <% if (delete_info) { %>
         <div class="alert alert-danger" role="alert"><%= delete_info %></div>
     <% } %>
+
+    <p class="header display-3">Бүкіл поэмалар</p>
 
     <table class="table">
         <thead>
@@ -24,8 +24,7 @@
 
             <tr>
                 <th scope="row"><%= start + i %></th>
-                <td onclick="location.href='/poems/<%= poems[i]._id %>';"
-                    style="cursor: pointer;"><%= poems[i].title %></td>
+                <td><a class="text-muted" href="/poems/<%= poems[i]._id %>"><%= poems[i].title %></a></td>
                 <td><a class="text-muted" href="/authors/<%= poems[i].author_id %>"><%= poems[i].authorName %></a></td>
                 <td><%= poems[i].likes %></td>
             </tr>
