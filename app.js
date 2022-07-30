@@ -5,6 +5,7 @@ const ejsMate = require('ejs-mate');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const flash = require('connect-flash');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -24,6 +25,16 @@ const annotationRouter = require("./routers/annotationRouter");
 const profileRouter = require("./routers/profileRouter");
 const helpers = require("./helpers");
 const AppError = require("./AppError");
+const User = require("./models/user");
+const Annotation = require("./models/annotation");
+const Poem = require("./models/poem");
+const Author = require("./models/author");
+
+// Enabled to fetch requests /api/statistics
+// But involves some security issues ???
+app.use(cors({
+    origin: [`http://localhost:${port}`, `http://aqyndar.herokuapp.com`],
+}));
 
 app.use("/static", express.static(__dirname + "/public"));
 
@@ -63,6 +74,35 @@ app.use("/authors", authorRouter);
 app.use("/poems", poemRouter);
 
 app.use("/annotations", annotationRouter);
+
+app.get('/api/statistics', async (req, res) => {
+    const authorsNum = await Author.countDocuments();
+    const poems = await Poem.find({});
+
+    let linesNum = 0;
+
+    poems.forEach(poem => {
+        const lines = poem.poem.split("\r\n");
+        linesNum += lines.length;
+    });
+
+    const annotationsNum = await Annotation.countDocuments();
+    const usersNum = await User.countDocuments();
+
+    const statistics = {
+        authorsNum: authorsNum,
+        poemsNum: poems.length,
+        linesNum: linesNum,
+        annotationsNum: annotationsNum,
+        usersNum: usersNum
+    };
+
+    // get the response as json
+
+    res.json(statistics);
+});
+
+app.get('/favicon.ico', (req, res) => res.status(204));
 
 // Only for development
 app.get("/error", (req, res) => {
