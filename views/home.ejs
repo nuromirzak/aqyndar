@@ -2,22 +2,60 @@
 <div class="">
     <p class="header display-1 mb-5"">Қазақстандық музыкалық тәжірибені кеңейту.</p>
 
-<!--    <div id="statistics" class="mb-3">-->
-<!--        <div class="header display-6">Бұл вебсайтқа ...<sup>*</sup></div>-->
-<!--        <div id="authorsNum"></div>-->
-<!--        <div id="poemsNum"></div>-->
-<!--        <div id="linesNum"></div>-->
-<!--        <div id="annotationsNum"></div>-->
-<!--        <div id="usersNum"></div>-->
-<!--        <div class="text-muted"><small>Деректер нақты уақыт режимінде жаңартылады</small></div>-->
-<!--    </div>-->
+    <!--    <div id="statistics" class="mb-3">-->
+    <!--        <div class="header display-6">Бұл вебсайтқа ...<sup>*</sup></div>-->
+    <!--        <div id="authorsNum"></div>-->
+    <!--        <div id="poemsNum"></div>-->
+    <!--        <div id="linesNum"></div>-->
+    <!--        <div id="annotationsNum"></div>-->
+    <!--        <div id="usersNum"></div>-->
+    <!--        <div class="text-muted"><small>Деректер нақты уақыт режимінде жаңартылады</small></div>-->
+    <!--    </div>-->
 
-    <div class="card-group mb-5" id="home-cards">
+    <div class="mb-3 border-0" id="statistics">
+        <div class="row">
+            <div class="col-md-5 p-5">
+                <img src="/static/images/mockuphone-iphone-xr.png"
+                     class="img-fluid" alt="IPhone XR Frame Screen">
+            </div>
+            <div class="col-md-7 d-flex align-items-center px-5 rounded-3" style="background: #f2f2f2;">
+                <div class="row">
+
+                    <div class="col-6">
+                        <p class="display-6 header" id="authorsNum">0</p>
+                        <p class="text-lead">автор қосылды</p>
+                    </div>
+
+                    <div class="col-6">
+                        <p class="display-6 header" id="poemsNum">0</p>
+                        <p class="text-lead">өлең қосылды</p>
+                    </div>
+
+                    <div class="col-6">
+                        <p class="display-6 header" id="linesNum">0</p>
+                        <p class="text-lead">тармақ қосылды</p>
+                    </div>
+
+                    <div class="col-6">
+                        <p class="display-6 header" id="annotationsNum">0</p>
+                        <p class="text-lead">аннотация қосылды</p>
+                    </div>
+
+                </div>
+
+                <div class="text-muted col-12 d-none"><small>Деректер нақты уақыт режимінде жаңартылады.</small></div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--    Hidden for now.-->
+    <div class="card-group mb-5 d-none" id="home-cards">
         <div class="card me-3 p-1 border-0">
             <div class="row g-0">
                 <div class="col-md-4 d-flex justify-content-center align-items-center">
                     <img src="/static/images/case.png"
-                         class="card-img rounded-start" alt="">
+                         class="card-img rounded-start d-none d-sm-block" alt="">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -33,7 +71,7 @@
             <div class="row g-0">
                 <div class="col-md-4 d-flex justify-content-center align-items-center">
                     <img src="/static/images/artists.png"
-                         class="card-img rounded-start" alt="">
+                         class="card-img rounded-start d-none d-sm-block" alt="">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -49,7 +87,7 @@
             <div class="row g-0">
                 <div class="col-md-4 d-flex justify-content-center align-items-center">
                     <img src="/static/images/dollar.png"
-                         class="card-img rounded-start" alt="">
+                         class="card-img rounded-start d-none d-sm-block" alt="">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -62,7 +100,8 @@
         </div>
     </div>
 
-    <div class="card-group mb-5">
+    <!--    Hidden for now.-->
+    <div class="card-group mb-5 d-none">
         <div class="card text-white me-3 p-1 border-0">
             <img src="/static/images/spotify-bg.png" class="card-img" alt="...">
             <div class="card-img-overlay d-flex flex-column justify-content-end">
@@ -107,5 +146,5 @@
         </div>
     </div>
 
-<!--    <script src="/static/scripts/statistics.js"></script>-->
+    <script src="/static/scripts/statistics.js"></script>
 </div>
