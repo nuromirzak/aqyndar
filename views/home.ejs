@@ -1,14 +1,17 @@
 <% layout("layouts/boilerplate") %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <div class="">
     <div class="row mb-5">
         <div class="col-md-6">
-            <p class="header display-6">Қазақстандық <span style="color: #fc0254;">музыкалық</span> тәжірибені
+            <p class="header display-6">Қазақстандық <span data-words="музыкалық|ақындық|шешендік"
+                                                           style="color: #fc0254;"></span> тәжірибені
                 кеңейту.</p>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
+            <p class="lead"> Қазақстан жазушыларының және ақындарының поэемаларын халыққа түсінікті тілде жеткізу</p>
             <div>
-                <button class="btn btn-primary btn-lg">Кіру</button>
-                <button class="btn btn-secondary btn-lg">Регистрация</button>
+                <button class="btn btn-primary btn-lg" onclick="window.location.href='/sign_in'">Кіру</button>
+                <button class="btn btn-secondary btn-lg" onclick="window.location.href='/sign_up'">Тіркелу</button>
             </div>
         </div>
         <div class="col-md-6">
@@ -18,22 +21,20 @@
     </div>
 
     <div class="mb-3">
-        <p class="display-3">How it works</p>
-        <div class="d-flex justify-content-around py-3">
-            <div class="me-5">
-                <h3><strong>Create an account</strong></h3>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipi-scing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Quis ipsum sus-pendisse ultrices gravida. </p>
+        <p class="display-3">Біз қалай жұмыс істейміз?</p>
+        <div class="row py-3">
+            <div class="col-md-4">
+                <h3><strong>Вебсайтқа тіркеліңіз</strong></h3>
+                <p class="text-muted">Жоғары оң бұрышта орналасқан батырмаға басып, өз пайдаланушы атыңыз бен құпиясөзді
+                    жазып вебсайтқа тіркеліңіз.</p>
             </div>
-            <div class="mx-5">
-                <h3><strong>Create an account</strong></h3>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipi-scing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Quis ipsum sus-pendisse ultrices gravida. </p>
+            <div class="col-md-4">
+                <h3><strong>Сүйікті өлеңізді қосыңыз</strong></h3>
+                <p class="text-muted">Әлі вебсайтқа қосылмаған, өзіңіз сүйікті өлеңдеріңізді вебсайтқа қосыңыз.</p>
             </div>
-            <div class="ms-5">
-                <h3><strong>Create an account</strong></h3>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipi-scing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Quis ipsum sus-pendisse ultrices gravida. </p>
+            <div class="col-md-4">
+                <h3><strong>Аннотация қосыңыз</strong></h3>
+                <p class="text-muted">Өзіңіз қосқан өлеңнің тармақтарына алуан түрлі аннотация қосыңыз.</p>
             </div>
         </div>
     </div>
@@ -76,45 +77,33 @@
     </div>
 
     <div>
-        <div class="row mb-3">
-            <div class="col-md-6 text-center">
-                <p class="header display-3">Our Concept & artists</p>
-            </div>
-            <div class="col-md-6 d-flex align-items-center">
-                <div>
-                    <p class="text-muted">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore
-                        magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan
-                        lacus
-                        vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-            </div>
+        <div class="text-center mb-5">
+            <p class="header display-6">Біздің ұстанымдарымыз & құндылықтарымыз</p>
         </div>
 
         <div class="row">
             <div class="col-md-3 text-center">
-                <img src="https://preview.colorlib.com/theme/solmusic/img/concept/x1.jpg.pagespeed.ic.TX12NoLeZf.webp"
-                     class="rounded-5" alt="">
-                <p class="lead py-1 mb-0">Автор</p>
+                <img src="https://img.freepik.com/free-vector/honesty-concept-illustration_114360-8896.jpg"
+                     class="img-fluid" alt="">
+                <p class="header lead py-3">Адалдық</p>
             </div>
 
             <div class="col-md-3 text-center">
-                <img src="https://preview.colorlib.com/theme/solmusic/img/concept/x1.jpg.pagespeed.ic.TX12NoLeZf.webp"
-                     class="rounded-5" alt="">
-                <p class="lead py-1 mb-0">Автор</p>
+                <img src="https://img.freepik.com/free-vector/dictionary-concept-illustration_114360-7489.jpg"
+                     class="img-fluid" alt="">
+                <p class="header lead py-3">Үздіксіз Үйрену</p>
             </div>
 
             <div class="col-md-3 text-center">
-                <img src="https://preview.colorlib.com/theme/solmusic/img/concept/x1.jpg.pagespeed.ic.TX12NoLeZf.webp"
-                     class="rounded-5" alt="">
-                <p class="lead py-1 mb-0">Автор</p>
+                <img src="https://img.freepik.com/free-vector/goal-illustration-concept_114360-903.jpg"
+                     class="img-fluid" alt="">
+                <p class="header lead py-3">Құштарлық</p>
             </div>
 
             <div class="col-md-3 text-center">
-                <img src="https://preview.colorlib.com/theme/solmusic/img/concept/x1.jpg.pagespeed.ic.TX12NoLeZf.webp"
-                     class="rounded-5" alt="">
-                <p class="lead py-1 mb-0">Автор</p>
+                <img src="https://img.freepik.com/free-vector/innovation-concept-illustration_114360-5848.jpg"
+                     class="img-fluid" alt="">
+                <p class="header lead py-3">Инновация</p>
             </div>
         </div>
     </div>
@@ -217,4 +206,5 @@
     </div>
 
     <script src="/static/scripts/statistics.js"></script>
+    <script src="/static/scripts/change-text.js"></script>
 </div>
