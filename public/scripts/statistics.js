@@ -18,6 +18,7 @@ const refreshStatistics = async () => {
 
 refreshStatistics().then(r => console.log('Statistics refreshed')).catch(e => console.log(e));
 
-const interval = setInterval(() => {
-    refreshStatistics().then(r => console.log('Statistics refreshed')).catch(e => console.log(e));
-}, 5000);
+// Removed for now
+// const interval = setInterval(() => {
+//     refreshStatistics().then(r => console.log('Statistics refreshed')).catch(e => console.log(e));
+// }, 5000);
