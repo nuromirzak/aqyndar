@@ -82,6 +82,8 @@ const displayAddAnnotation = async (req, res) => {
 
     const lines = poem.poem.split("\r\n");
 
+    const annotation_info = req.flash("annotation_info");
+
     // Render the add annotation page
     res.render("annotations/add_annotation", {
         title: "Аннотация қосу",
@@ -90,12 +92,13 @@ const displayAddAnnotation = async (req, res) => {
         poemName: poem.title,
         line_number: parseInt(line_number),
         lines: lines,
+        annotation_info: annotation_info[0],
     });
 };
 
 // Controller that handles adding an annotation to the database
 const addAnnotation = async (req, res) => {
-    const {poem_id, line_number, annotation} = req.body;
+    const {poem_id, line_number, annotation, from_collapse} = req.body;
 
     // Check if required fields are filled out
     if (!(poem_id && line_number && annotation)) {
@@ -116,8 +119,7 @@ const addAnnotation = async (req, res) => {
 
     req.flash("annotation_info", "Аннотация сәтті қосылды");
 
-    // Redirect to the all poems page
-    res.redirect(`/poems/${poem_id}`);
+    res.redirect(`/annotations/new?poem_id=${poem_id}&line_number=${line_number}`);
 };
 
 module.exports = {

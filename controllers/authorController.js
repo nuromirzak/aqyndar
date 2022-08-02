@@ -216,6 +216,11 @@ const deleteAuthor = async (req, res) => {
 
 // Controller for displaying a specific author
 const displayAuthor = async (req, res) => {
+    let {page = "1"} = req.query;
+
+    page = Number(page);
+    const limit = 5;
+
     // Get the author id from the query
     const {id} = req.params;
 
@@ -238,11 +243,23 @@ const displayAuthor = async (req, res) => {
         author.canEdit = helpers.hasAccess(author.user_id, req.session.user_id);
     }
 
+    // Find all the poems of the author
+    const poems = await Poem.find({author_id: id}, null, {
+        skip: (page - 1) * limit,
+        limit: limit,
+    });
+
+    const count = await Poem.countDocuments({author_id: id});
+
     // Render the author page
     res.render("authors/single_author", {
         title: author.fullname,
         isLogged: Boolean(req.session.user_id),
         author,
+        poems,
+        start: (page - 1) * limit + 1,
+        page: page,
+        numberOfPages: Math.ceil(count / limit),
     });
 };
 

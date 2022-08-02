@@ -50,7 +50,7 @@
 
                 <% if (isLogged) { %>
                     <li class="nav-item dropdown mx-2">
-                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        <a class="btn btn-primary dropdown-toggle mb-2" href="#" role="button" id="dropdownMenuLink"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -67,10 +67,10 @@
                         </ul>
                     </li>
                 <% } else { %>
-                    <li class="nav-item mx-2">
+                    <li class="nav-item mx-2 mb-2">
                         <a class="btn btn-primary" href="/sign_in">Профильге кіру</a>
                     </li>
-                    <li class="nav-item mx-2">
+                    <li class="nav-item mx-2 mb-2">
                         <a class="btn btn-primary" href="/sign_up">Регистрация</a>
                     </li>
                 <% } %>

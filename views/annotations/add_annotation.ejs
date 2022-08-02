@@ -2,6 +2,18 @@
 <form action="/annotations/new" method="post" class="col-md-6 offset-md-3">
     <input type="hidden" name="poem_id" value="<%= id %>">
 
+    <!--    <% if (line_number) { %>-->
+    <!--        <input type="hidden" name="from_collapse" value="true">-->
+    <!--    <% } else { %>-->
+    <!--        <input type="hidden" name="from_collapse" value="false">-->
+    <!--    <% } %>-->
+
+    <% if (annotation_info) { %>
+        <div class="alert alert-success mb-0" role="alert">
+            <%= annotation_info %>
+        </div>
+    <% } %>
+
     <div class="form-group mb-3">
         <p class="header display-3"><%= poemName %></p>
     </div>
@@ -35,4 +47,6 @@
     </div>
 
     <button class="btn btn-primary" type="submit">Жіберу</button>
+
+    <a href="/poems/<%= id %>" class="btn btn-secondary">Кері қайту</a>
 </form>

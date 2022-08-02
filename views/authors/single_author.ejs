@@ -24,4 +24,50 @@
             <span class="lh-lg"><%= author.biography %></span>
         </div>
     <% } %>
+
+    <% if (poems.length > 0) { %>
+        <hr>
+
+        <p><strong>Автордың өлеңдері:</strong></p>
+
+        <ul class="list-group mb-3">
+            <% for (let i = 0; i < poems.length; i++) { %>
+
+                <li class="list-group-item"><%= start + i %>. <a
+                            href="/poems/<%= poems[i]._id %>"
+                            class="text-muted"><%= poems[i].title %></a>
+                </li>
+
+            <% } %>
+        </ul>
+
+        <div aria-label="Page navigation example">
+            <ul class="pagination pagination-sm flex-sm-wrap">
+                <% if (page > 1) { %>
+                    <li class="page-item"><a class="page-link" href="/authors/<%= author._id %>?page=<%= page - 1 %>">Алдыңғы</a></li>
+                <% } else { %>
+                    <li class="page-item disabled"><a class="page-link" href="#">Алдыңғы</a></li>
+                <% } %>
+
+                <% for (let i = 1; i <= numberOfPages; i++) { %>
+                    <% if (i === page) { %>
+                        <li class="page-item active"><a class="page-link" href="/authors/<%= author._id %>?page=<%= i %>"><%= i %></a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item"><a class="page-link" href="/authors/<%= author._id %>?page=<%= i %>"><%= i %></a></li>
+                    <% } %>
+                <% } %>
+
+                <% if (page < numberOfPages) { %>
+                    <li class="page-item"><a class="page-link" href="/authors/<%= author._id %>?page=<%= page + 1 %>">Келесі</a></li>
+                <% } else { %>
+                    <li class="page-item disabled"><a class="page-link" href="#">Келесі</a></li>
+                <% } %>
+            </ul>
+        </div>
+    <% } else { %>
+        <hr>
+
+        <p>Пайдаланушы әлі аннотация қосқан жоқ</p>
+    <% } %>
 </div>
