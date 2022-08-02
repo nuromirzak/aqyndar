@@ -1,28 +1,21 @@
-// TODO: Change to pure javascript
-function dataWord() {
+// TODO: Change to pure javascript\
+const text = ['ақындық', 'шешендік', 'музыкалық'];
 
-    $("[data-words]").attr("data-words", function (i, d) {
-        var $self = $(this),
-            $words = d.split("|"),
-            tot = $words.length,
-            c = 0;
+let counter = 0;
+const elem = $("#greeting");
 
-        // CREATE SPANS INSIDE SPAN
-        for (var i = 0; i < tot; i++) $self.append($('<span/>', {text: $words[i]}));
-
-        // COLLECT WORDS AND HIDE
-        $words = $self.find("span").hide();
-
-        // ANIMATE AND LOOP
-        (function loop() {
-            $self.animate({width: $words.eq(c).width()});
-            $words.stop().fadeOut().eq(c).fadeIn().delay(2000).show(0, loop);
-            c = ++c % tot;
-        }());
-
+function change() {
+    elem.fadeOut(function () {
+        elem.html(text[counter]);
+        counter++;
+        if (counter >= text.length) {
+            counter = 0;
+        }
+        elem.fadeIn();
     });
-
 }
 
+setInterval(change, 2000);
+
 // dataWord(); // If you don't use external fonts use this on DOM ready; otherwise use:
-$(window).on("load", dataWord);
+// $(window).on("load", dataWord);

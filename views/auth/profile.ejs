@@ -17,13 +17,11 @@
                                                         role="button">Профильді өзгерту</a>
     </p>
 
-    <p><strong>Email:</strong> <%= user.email %></p>
+    <% if (user.email) { %>
+        <p><strong>Email:</strong> <%= user.email %></p>
 
-    <hr>
-
-    <p><strong>Роль:</strong> <%= user.role %></p>
-
-    <hr>
+        <hr>
+    <% } %>
 
     <p><strong>IQ ұпайы:</strong> <%= user.iqNumber %></p>
 
@@ -71,5 +69,9 @@
                 <% } %>
             </ul>
         </div>
+    <% } else { %>
+        <hr>
+
+        <p>Пайдаланушы әлі аннотация қосқан жоқ</p>
     <% } %>
 </div>

@@ -18,14 +18,17 @@ const displaySignUp = (req, res) => {
 
 // Controller that handles the sign-up process
 const signUp = async (req, res) => {
-    let {username, password, email, role = "user"} = req.body;
+    const {username, password, email, role = "user"} = req.body;
 
-    if (!email) {
-        email = "no_mail@aqyndar.com";
+    if (!(username && password && role)) {
+        res.status(400).send("Міндетті торлар толтырылмаған");
+        return;
     }
 
-    if (!(username && password && email && role)) {
-        res.status(400).send("Міндетті торлар толтырылмаған");
+    const isFoundUser = await User.findOne({username: username});
+
+    if (isFoundUser) {
+        res.status(400).send("Бұл пайдаланущы аты бос емес");
         return;
     }
 
