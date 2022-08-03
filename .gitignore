@@ -2,3 +2,4 @@
 /.env
 /uploads
 /package-lock.json
+/public/images/uncompressed
