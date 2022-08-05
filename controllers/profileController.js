@@ -4,6 +4,7 @@ const moment = require("moment");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const Poem = require("../models/poem");
+const AppError = require("../AppError");
 
 moment.locale('kk');
 
@@ -12,6 +13,11 @@ const displayProfile = async (req, res, next) => {
     let {page = "1"} = req.query;
 
     page = Number(page);
+
+    if (page < 1 || Object.is(page, NaN)) {
+        page = 1;
+    }
+
     const limit = 5;
 
     // Paginate poems
@@ -71,7 +77,7 @@ const displayProfile = async (req, res, next) => {
 };
 
 // Controller that displays the profile edit
-const displayProfileEdit = async (req, res) => {
+const displayProfileEdit = async (req, res, next) => {
     // Find the user
     const user = await User.findById(req.session.user_id);
 
@@ -84,11 +90,11 @@ const displayProfileEdit = async (req, res) => {
 };
 
 // Controller that handles the profile edit process
-const profileEdit = async (req, res) => {
+const profileEdit = async (req, res, next) => {
     const {username, email} = req.body;
 
     if (!(username && email)) {
-        res.status(400).send("Міндетті торлар толтырылмаған");
+        next(new AppError("Міндетті торлар толтырылмаған", 400));
         return;
     }
 
@@ -126,11 +132,11 @@ const profileEdit = async (req, res) => {
 };
 
 // Controller that handles the password change process
-const passwordChange = async (req, res) => {
+const passwordChange = async (req, res, next) => {
     const {old_password, new_password_1, new_password_2} = req.body;
 
     if (!(old_password && new_password_1 && new_password_2)) {
-        res.status(400).send("Міндетті торлар толтырылмаған");
+        next(new AppError("Міндетті торлар толтырылмаған", 400));
         return;
     }
 
@@ -142,13 +148,13 @@ const passwordChange = async (req, res) => {
 
     // If the old password is incorrect, return an error
     if (!isCorrect) {
-        res.status(400).send("Пароль дұрыс емес");
+        next(new AppError("Пароль дұрыс емес", 400));
         return;
     }
 
     // Check if the new passwords match
     if (new_password_1 !== new_password_2) {
-        res.status(400).send("Жаңа парольдер сәйкес келмейді");
+        next(new AppError("Жаңа парольдер сәйкес келмейді", 400));
         return;
     }
 
@@ -169,7 +175,7 @@ const passwordChange = async (req, res) => {
 };
 
 // View another user's profile
-const displayOthersProfile = async (req, res) => {
+const displayOthersProfile = async (req, res, next) => {
     const id = req.params.id;
 
     if (id === req.session.user_id) {
@@ -178,7 +184,7 @@ const displayOthersProfile = async (req, res) => {
     }
 
     if (!mongoose.isValidObjectId(id)) {
-        res.status(400).send("Қате форматтағы id");
+        next(new AppError("Қате форматтағы id", 400));
         return;
     }
 

@@ -5,12 +5,18 @@ const Annotation = require("../models/annotation");
 const helpers = require("../helpers");
 const mongoose = require("mongoose");
 const User = require("../models/user");
+const AppError = require("../AppError");
 
 // Controller that displays all poems
-const displayAllPoems = async (req, res) => {
+const displayAllPoems = async (req, res, next) => {
     let {page = "1"} = req.query;
 
     page = Number(page);
+
+    if (page < 1 || Object.is(page, NaN)) {
+        page = 1;
+    }
+
     const limit = 20;
 
     // Paginate poems
@@ -58,7 +64,7 @@ const displayAllPoems = async (req, res) => {
 };
 
 // Controller that handles liking a poem
-const likePoem = async (req, res) => {
+const likePoem = async (req, res, next) => {
     const {id} = req.query;
 
     let poem;
@@ -69,7 +75,7 @@ const likePoem = async (req, res) => {
     }
 
     if (!poem) {
-        res.send("Өлең табылмады");
+        next(new AppError("Өлең табылмады", 404));
         return;
     }
 
@@ -95,7 +101,7 @@ const likePoem = async (req, res) => {
 }
 
 // Controller that displays a single poem
-const displayPoem = async (req, res) => {
+const displayPoem = async (req, res, next) => {
     // Get poem id from url
     const {id} = req.params;
 
@@ -107,7 +113,7 @@ const displayPoem = async (req, res) => {
     }
 
     if (!poem) {
-        res.send("Өлең табылмады");
+        next(new AppError("Өлең табылмады", 404));
         return;
     }
 
@@ -169,7 +175,7 @@ const displayPoem = async (req, res) => {
 }
 
 // Controller that displays form for creating a new poem
-const displayAddPoem = async (req, res) => {
+const displayAddPoem = async (req, res, next) => {
     // Find all authors
     const authors = await Author.find({});
 
@@ -182,7 +188,7 @@ const displayAddPoem = async (req, res) => {
 };
 
 // Controller that displays form for editing a poem
-const displayEditPoem = async (req, res) => {
+const displayEditPoem = async (req, res, next) => {
     // Get poem id from url
     const {id} = req.query;
 
@@ -194,7 +200,7 @@ const displayEditPoem = async (req, res) => {
     }
 
     if (!poem) {
-        res.send("Өлең табылмады");
+        next(new AppError("Өлең табылмады", 404));
         return;
     }
 
@@ -218,13 +224,13 @@ const displayEditPoem = async (req, res) => {
 }
 
 // Controller that saves/updates a poem
-const savePoem = async (req, res) => {
+const savePoem = async (req, res, next) => {
     const {id, title, poem, author} = req.body;
     let {yt_id} = req.body;
 
     // Validate required fields
     if (!(title && poem && author)) {
-        res.status(400).send("Міндетті торлар толтырылуы қажет");
+        next(new AppError("Міндетті торлар толтырылуы қажет", 400));
         return;
     }
 
@@ -281,13 +287,13 @@ const savePoem = async (req, res) => {
 };
 
 // Controller that deletes a poem
-const deletePoem = async (req, res) => {
+const deletePoem = async (req, res, next) => {
     // Get poem id from query params
     const {id} = req.query;
 
     // Validate id
     if (!id) {
-        res.status(400).send("Міндетті торлар толтырылуы қажет");
+        next(new AppError("Міндетті торлар толтырылуы қажет", 400));
         return;
     }
 
@@ -295,13 +301,13 @@ const deletePoem = async (req, res) => {
     const poem = await Poem.findById(id);
 
     if (!poem) {
-        res.send("Өлең табылмады");
+        next(new AppError("Өлең табылмады", 404));
         return;
     }
 
     // Check if user can edit this poem
     if (!helpers.hasAccess(poem.user_id, req.session.user_id)) {
-        res.send("Сіз бұл өлеңді жоя алмайсыз");
+        next(new AppError("Сіз бұл өлеңді жоя алмайсыз", 403));
         return;
     }
 

@@ -1,9 +1,10 @@
 const bcrypt = require('bcrypt');
 const User = require("../models/user");
 const config = require("../config");
+const AppError = require("../AppError");
 
 // Controller that displays the sign-up page
-const displaySignUp = (req, res) => {
+const displaySignUp = (req, res, next) => {
     // If user is already logged in, redirect to profile page
     if (req.session.user_id) {
         res.redirect("/profile");
@@ -17,18 +18,18 @@ const displaySignUp = (req, res) => {
 };
 
 // Controller that handles the sign-up process
-const signUp = async (req, res) => {
+const signUp = async (req, res, next) => {
     const {username, password, email, role = "user"} = req.body;
 
     if (!(username && password && role)) {
-        res.status(400).send("Міндетті торлар толтырылмаған");
+        next(new AppError("Міндетті торлар толтырылмаған", 400));
         return;
     }
 
     const isFoundUser = await User.findOne({username: username});
 
     if (isFoundUser) {
-        res.status(400).send("Бұл пайдаланущы аты бос емес");
+        next(new AppError("Бұл пайдаланущы аты бос емес", 400));
         return;
     }
 

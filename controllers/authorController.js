@@ -4,12 +4,18 @@ const helpers = require("../helpers");
 const Annotation = require("../models/annotation");
 const mongoose = require("mongoose");
 const config = require("../config");
+const AppError = require("../AppError");
 
 // Controller for displaying all authors
-const displayAllAuthors = async (req, res) => {
+const displayAllAuthors = async (req, res, next) => {
     let {page = "1"} = req.query;
 
     page = Number(page);
+
+    if (page < 1 || Object.is(page, NaN)) {
+        page = 1;
+    }
+
     const limit = 20;
 
     const authors = await Author.find({}, null, {
@@ -43,7 +49,7 @@ const displayAllAuthors = async (req, res) => {
 };
 
 // Controller for displaying a form for adding a new author
-const displayAddAuthorForm = async (req, res) => {
+const displayAddAuthorForm = async (req, res, next) => {
     res.render("authors/add_author", {
         title: "Жаңа автор қосу",
         isLogged: Boolean(req.session.user_id),
@@ -51,13 +57,13 @@ const displayAddAuthorForm = async (req, res) => {
 };
 
 // Controller for displaying a form for editing an author
-const displayEditAuthorForm = async (req, res) => {
+const displayEditAuthorForm = async (req, res, next) => {
     // Get the author id from the query
     const {id} = req.query;
 
     // Check if the id is present
     if (!id) {
-        res.status(400).send("Міндетті торлар толтырылуы қажет");
+        next(new AppError("Міндетті торлар толтырылуы қажет", 400));
         return;
     }
 
@@ -85,12 +91,12 @@ const displayEditAuthorForm = async (req, res) => {
 };
 
 // Controller for adding/updating an author
-const saveAuthor = async (req, res) => {
+const saveAuthor = async (req, res, next) => {
     const {id, fullname, biography} = req.body;
 
     // Check if required fields are present
     if (!fullname) {
-        res.status(400).send("Міндетті торлар толтырылуы қажет");
+        next(new AppError("Міндетті торлар толтырылуы қажет", 400));
         return;
     }
 
@@ -165,12 +171,12 @@ const saveAuthor = async (req, res) => {
 };
 
 // Controller for deleting an author
-const deleteAuthor = async (req, res) => {
+const deleteAuthor = async (req, res, next) => {
     // Get the author id from the query
     const {id} = req.query;
 
     if (!id) {
-        res.status(400).send("Міндетті торлар толтырылуы қажет");
+        next(new AppError("Міндетті торлар толтырылуы қажет", 400));
         return;
     }
 
@@ -179,13 +185,13 @@ const deleteAuthor = async (req, res) => {
 
     // If author is not found, return an error
     if (!author) {
-        res.send("Автор табылмады");
+        next(new AppError("Автор табылмады", 404));
         return;
     }
 
     // Check if the user has access to the author
     if (!helpers.hasAccess(author.user_id, req.session.user_id)) {
-        res.send("Сіз бұл авторды жоя алмайсыз");
+        next(new AppError("Сіз бұл авторды жоя алмайсыз", 403));
         return;
     }
 
@@ -215,27 +221,30 @@ const deleteAuthor = async (req, res) => {
 };
 
 // Controller for displaying a specific author
-const displayAuthor = async (req, res) => {
+const displayAuthor = async (req, res, next) => {
     let {page = "1"} = req.query;
 
     page = Number(page);
+
+    if (page < 1 || Object.is(page, NaN)) {
+        page = 1;
+    }
+
     const limit = 5;
 
     // Get the author id from the query
     const {id} = req.params;
 
-    // Check if the id is present
-    if (!id) {
-        res.status(400).send("Міндетті торлар толтырылуы қажет");
-        return;
-    }
+    let author;
 
-    // Find the author
-    const author = await Author.findById(id);
+    // Validate id
+    if (mongoose.isValidObjectId(id)) {
+        author = await Author.findById(id);
+    }
 
     // Check if the author is found
     if (!author) {
-        res.send("Автор табылмады");
+        next(new AppError("Автор табылмады", 404));
         return;
     }
 

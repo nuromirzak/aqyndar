@@ -1,5 +1,5 @@
 // Controller that displays the main page
-const displayMainPage = (req, res) => {
+const displayMainPage = (req, res, next) => {
     // Render the main page
     res.render("home", {
         title: "Басты бет",
@@ -8,7 +8,7 @@ const displayMainPage = (req, res) => {
 };
 
 // Controller that displays the about page
-const displayAboutPage = (req, res) => {
+const displayAboutPage = (req, res, next) => {
     // Render the about page
     res.render("about", {
         title: "Біз туралы",
@@ -17,7 +17,7 @@ const displayAboutPage = (req, res) => {
 };
 
 // Controller that displays the FAQ page
-const displayFAQPage = (req, res) => {
+const displayFAQPage = (req, res, next) => {
     // Render the FAQ page
     res.render("faq", {
         title: "FAQ",

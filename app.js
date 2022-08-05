@@ -75,7 +75,7 @@ app.use("/poems", poemRouter);
 
 app.use("/annotations", annotationRouter);
 
-app.get('/api/statistics', async (req, res) => {
+app.get('/api/statistics', async (req, res, next) => {
     const authorsNum = await Author.countDocuments();
     const poems = await Poem.find({});
 
@@ -102,10 +102,10 @@ app.get('/api/statistics', async (req, res) => {
     res.json(statistics);
 });
 
-app.get('/favicon.ico', (req, res) => res.status(204));
+app.get('/favicon.ico', (req, res, next) => res.status(204));
 
 // Only for development
-app.get("/error", (req, res) => {
+app.get("/error", (req, res, next) => {
     console.log("Starting /error route");
 
     const object = {};
@@ -126,9 +126,11 @@ app.use((req, res, next) => {
 
 // Error handling
 app.use((err, req, res, next) => {
-    console.log(err);
+    if (!err instanceof AppError) {
+        console.log(err);
+    }
 
-    const {status = 500, message = "Unknown error"} = err;
+    const {status = 500, message = "Күтпеген қате. 211393@astanait.edu.kz-ге хабарласыңыз."} = err;
 
     res.status(status).render('error', {
         title: 'Қате',

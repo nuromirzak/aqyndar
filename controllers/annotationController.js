@@ -1,12 +1,18 @@
 const Poem = require("../models/poem");
 const Annotation = require("../models/annotation");
 const mongoose = require("mongoose");
+const AppError = require("../AppError");
 
 // Controller for displaying all annotations
-const displayAllAnnotations = async (req, res) => {
+const displayAllAnnotations = async (req, res, next) => {
     let {page = "1"} = req.query;
 
     page = Number(page);
+
+    if (page < 1 || Object.is(page, NaN)) {
+        page = 1;
+    }
+
     const limit = 20;
 
     // Paginate annotations
@@ -35,10 +41,15 @@ const displayAllAnnotations = async (req, res) => {
     });
 };
 
-const displayPoemsForAddingAnnotation = async (req, res) => {
+const displayPoemsForAddingAnnotation = async (req, res, next) => {
     let {page = "1"} = req.query;
 
     page = Number(page);
+
+    if (page < 1 || Object.is(page, NaN)) {
+        page = 1;
+    }
+
     const limit = 20;
 
     // Paginate poems
@@ -61,7 +72,7 @@ const displayPoemsForAddingAnnotation = async (req, res) => {
 };
 
 // Controller for displaying form for adding an annotation for a specific poem
-const displayAddAnnotation = async (req, res) => {
+const displayAddAnnotation = async (req, res, next) => {
     // Get the poem id from the query params
     const id = req.query.poem_id;
 
@@ -76,7 +87,7 @@ const displayAddAnnotation = async (req, res) => {
 
     // If poem doesn't exist, send message to user
     if (!poem) {
-        res.send("Өлең табылмады");
+        next(new AppError("Өлең табылмады", 404));
         return;
     }
 
@@ -97,12 +108,12 @@ const displayAddAnnotation = async (req, res) => {
 };
 
 // Controller that handles adding an annotation to the database
-const addAnnotation = async (req, res) => {
+const addAnnotation = async (req, res, next) => {
     const {poem_id, line_number, annotation, from_collapse} = req.body;
 
     // Check if required fields are filled out
     if (!(poem_id && line_number && annotation)) {
-        res.status(400).send("Міндетті торлар толтырылуы қажет");
+        next(new AppError("Міндетті торлар толтырылуы қажет", 400));
         return;
     }
 
