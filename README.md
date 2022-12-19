@@ -24,12 +24,13 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
+
 <!-- PROJECT LOGO -->
 <a href="https://github.com/nuromirzak/aqyndar">
     <img src="./public/icons/android-chrome-192x192.png" alt="Logo" width="80" height="80">
   </a>
 
-# Aqyndar
+# Aqyndar [![kk](https://img.shields.io/badge/lang-kk-blue.svg)](./README.md) [![en](https://img.shields.io/badge/lang-en-yellow.svg)](./README.en.md) [![ru](https://img.shields.io/badge/lang-ru-red.svg)](./README.ru.md)
 
 Қазақстан жазушыларының және ақындарының поэемаларын түсінікті тілде жеткізу
 
