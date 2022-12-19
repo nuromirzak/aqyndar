@@ -24,57 +24,28 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-
-
 <!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/nuromirzak/aqyndar">
+<a href="https://github.com/nuromirzak/aqyndar">
     <img src="./public/icons/android-chrome-192x192.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Aqyndar</h3>
+# Aqyndar
 
-  <p align="center">
-    Қазақстан жазушыларының және ақындарының поэемаларын түсінікті тілде жеткізу
-    <br />
-        <a href="https://github.com/nuromirzak/aqyndar"><strong>Документацияны оқу »</strong></a>
-    <br />
-    <br />
-    <a href="https://aqyndar.herokuapp.com/">Сайтты ашу</a>
-    ·
-    <a href="https://github.com/nuromirzak/aqyndar/issues">Қате туралы хабарлау</a>
-    ·
-    <a href="https://github.com/nuromirzak/aqyndar/issues">Өзгеріс ұсыну</a>
-  </p>
-</div>
+Қазақстан жазушыларының және ақындарының поэемаларын түсінікті тілде жеткізу
 
-
+[Документацияны оқу](https://github.com/nuromirzak/aqyndar) · [Қате туралы хабарлау](https://github.com/nuromirzak/aqyndar/issues) · [Өзгеріс ұсыну](https://github.com/nuromirzak/aqyndar/issues)
 
 <!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Мазмұн</summary>
-  <ol>
-    <li>
-      <a href="#жоба-туралы">About The Project</a>
-      <ul>
-        <li><a href="#қолданылған-құралдар">Қолданылған құралдар</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#проектке-кірісу">Проектке кірісу</a>
-      <ul>
-        <li><a href="#алғышарттар">Алғышарттар</a></li>
-        <li><a href="#орнату">Орнату</a></li>
-      </ul>
-    </li>
-    <li><a href="#үлесқосу">Үлес қосу</a></li>
-    <li><a href="#лицензия">Лицензия</a></li>
-    <li><a href="#контакттер">Контакттер</a></li>
-  </ol>
-</details>
+## Мазмұн
 
-
+1. [Проект туралы](#жоба-туралы)
+   - [Қолданылған құралдар](#қолданылған-құралдар)
+2. [Проектке кірісу](#проектке-кірісу)
+    - [Алғышарттар](#алғышарттар)
+    - [Орнату](#орнату)
+3. [Үлес қосу](#үлес-қосу)
+4. [Лицензия](#лицензия)
+5. [Контакттер](#контакттер)
 
 <!-- ABOUT THE PROJECT -->
 
@@ -103,8 +74,6 @@
 
 <p align="right">(<a href="#top">жоңарыға көтерілу</a>)</p>
 
-
-
 <!-- GETTING STARTED -->
 
 ## Проектке кірісу
@@ -117,6 +86,7 @@
 MongoDB-ны қолданады.
 
 * node
+
   ```sh
   npm install npm@latest -g
   ```
@@ -125,14 +95,19 @@ MongoDB-ны қолданады.
 
 1. [Cloudinary](https://cloudinary.com/) сайтына тіркеліп, API кілт алыңыз
 2. Репоны көшіріңіз
+
    ```sh
    git clone https://github.com/nuromirzak/aqyndar.git
    ```
+
 3. NPM пакеттерді орнатыңыз
+
    ```sh
    npm install
    ```
+
 4. Қоршаған орта айнымалыларын (environment variables) `.env` файлына енгізіңіз
+
    ```dotenv
     MONGO_DB=# change to your mongodb url
     CLOUDINARY_CLOUD_NAME=# change to your cloudinary cloud name
@@ -141,7 +116,6 @@ MongoDB-ны қолданады.
    ```
 
 <p align="right">(<a href="#top">жоңарыға көтерілу</a>)</p>
-
 
 <!-- CONTRIBUTING -->
 
@@ -161,8 +135,6 @@ MongoDB-ны қолданады.
 
 <p align="right">(<a href="#top">жоңарыға көтерілу</a>)</p>
 
-
-
 <!-- LICENSE -->
 
 ## Лицензия
@@ -170,8 +142,6 @@ MongoDB-ны қолданады.
 MIT лицензиясы бойынша таратылады. Қосымша ақпарат үшін `LICENSE.txt` файлын ашыңыз.
 
 <p align="right">(<a href="#top">жоңарыға көтерілу</a>)</p>
-
-
 
 <!-- CONTACT -->
 
@@ -182,8 +152,6 @@ Nurmukhammed - [Linkedin][linkedin-url]
 Жобаға сілтеме: [https://github.com/nuromirzak/aqyndar](https://github.com/nuromirzak/aqyndar)
 
 <p align="right">(<a href="#top">жоңарыға көтерілу</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -211,8 +179,6 @@ Nurmukhammed - [Linkedin][linkedin-url]
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 
 [linkedin-url]: https://linkedin.com/in/nurmukhammed
-
-[product-screenshot]: ./public/images/screenshot_1.png
 
 [Express.js]: https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logoColor=white&logo=express
 

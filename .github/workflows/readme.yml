@@ -13,7 +13,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x 
+          node-version: 12.x
       - name: Adding README - Russian
         uses: dephraiim/translate-readme@main
         with:
@@ -22,23 +22,3 @@ jobs:
         uses: dephraiim/translate-readme@main
         with:
           LANG: en
-      - name: Adding README - Hindi
-        uses: dephraiim/translate-readme@main
-        with:
-          LANG: hi
-      - name: Adding README - Arabic
-        uses: dephraiim/translate-readme@main
-        with:
-          LANG: ar
-      - name: Adding README - French
-        uses: dephraiim/translate-readme@main
-        with:
-          LANG: fr
-      - name: Adding README - Chinese Simplified
-        uses: dephraiim/translate-readme@main
-        with:
-          LANG: zh-CN
-      - name: Adding README - Chinese Traditional
-        uses: dephraiim/translate-readme@main
-        with:
-          LANG: zh-TW
