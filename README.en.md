@@ -27,11 +27,11 @@
     <img src="./public/icons/android-chrome-192x192.png" alt="Logo" width="80" height="80">
   </a>
 
-# Akinder
+# Akinder[![kk](https://img.shields.io/badge/lang-kk-blue.svg)](./README.md)[![en](https://img.shields.io/badge/lang-en-yellow.svg)](./README.en.md)[![ru](https://img.shields.io/badge/lang-ru-red.svg)](./README.ru.md)
 
 Delivery of poems of Kazakh writers and poets in an understandable language
 
-[Read the documentation](https://github.com/nuromirzak/aqyndar)·[Report an error](https://github.com/nuromirzak/aqyndar/issues)·[Suggest a change](https://github.com/nuromirzak/aqyndar/issues)
+[Документацияны оқу](https://github.com/nuromirzak/aqyndar)·[Report an error](https://github.com/nuromirzak/aqyndar/issues)·[Suggest a change](https://github.com/nuromirzak/aqyndar/issues)
 
 <!-- TABLE OF CONTENTS -->
 
@@ -77,7 +77,7 @@ the project is based on the principles of crowdsourcing. People voluntarily cont
 
 ## Getting started with the project
 
-Проекті өзіңіздің компьютеріңізде іске қосу үшін келесі қарапайым қадамдарды орындаңыз.
+Follow these simple steps to run the project on your computer.
 
 ### Prerequisites
 
