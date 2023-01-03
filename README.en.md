@@ -31,7 +31,7 @@
 
 Delivery of poems of Kazakh writers and poets in an understandable language
 
-[Документацияны оқу](https://github.com/nuromirzak/aqyndar)·[Report an error](https://github.com/nuromirzak/aqyndar/issues)·[Suggest a change](https://github.com/nuromirzak/aqyndar/issues)
+[Read the documentation](https://github.com/nuromirzak/aqyndar)·[Report an error](https://github.com/nuromirzak/aqyndar/issues)·[Suggest a change](https://github.com/nuromirzak/aqyndar/issues)
 
 <!-- TABLE OF CONTENTS -->
 
@@ -42,7 +42,7 @@ Delivery of poems of Kazakh writers and poets in an understandable language
 2.  [Getting started with the project](#проектке-кірісу)
     -   [Prerequisites](#алғышарттар)
     -   [Installation](#орнату)
-3.  [Add a contribution](#үлес-қосу)
+3.  [Contribute](#үлес-қосу)
 4.  [License](#лицензия)
 5.  [Contacts](#контакттер)
 
@@ -119,7 +119,7 @@ Uses MongoDB.
 
 <!-- CONTRIBUTING -->
 
-## Add a contribution
+## Contribute
 
 Contributing makes the open-source community an amazing place to learn, be inspired, and come up with new ideas. Any
 your contribution**highly appreciated**.
