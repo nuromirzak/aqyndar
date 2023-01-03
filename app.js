@@ -30,6 +30,7 @@ const Annotation = require("./models/annotation");
 const Poem = require("./models/poem");
 const Author = require("./models/author");
 const healthCheckRouter = require("./routers/healthCheckRouter");
+const statisticsRouter = require("./routers/statisticsRouter");
 
 // Enabled to fetch requests /api/statistics
 // But involves some security issues ???
@@ -78,32 +79,7 @@ app.use("/annotations", annotationRouter);
 
 app.use("/test", healthCheckRouter);
 
-app.get('/api/statistics', async (req, res, next) => {
-    const authorsNum = await Author.countDocuments();
-    const poems = await Poem.find({});
-
-    let linesNum = 0;
-
-    poems.forEach(poem => {
-        const lines = poem.poem.split("\r\n");
-        linesNum += lines.length;
-    });
-
-    const annotationsNum = await Annotation.countDocuments();
-    const usersNum = await User.countDocuments();
-
-    const statistics = {
-        authorsNum: authorsNum,
-        poemsNum: poems.length,
-        linesNum: linesNum,
-        annotationsNum: annotationsNum,
-        usersNum: usersNum
-    };
-
-    // get the response as json
-
-    res.json(statistics);
-});
+app.use('/api', statisticsRouter);
 
 app.get('/favicon.ico', (req, res, next) => res.status(204));
 
