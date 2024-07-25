@@ -27,9 +27,9 @@
     <img src="./public/icons/android-chrome-192x192.png" alt="Logo" width="80" height="80">
   </a>
 
-# Akinder[![kk](https://img.shields.io/badge/lang-kk-blue.svg)](./README.md)[![en](https://img.shields.io/badge/lang-en-yellow.svg)](./README.en.md)[![ru](https://img.shields.io/badge/lang-ru-red.svg)](./README.ru.md)
+# Aqyndar[![kk](https://img.shields.io/badge/lang-kk-blue.svg)](./README.md)[![en](https://img.shields.io/badge/lang-en-yellow.svg)](./README.en.md)[![ru](https://img.shields.io/badge/lang-ru-red.svg)](./README.ru.md)
 
-Delivery of poems of Kazakh writers and poets in an understandable language
+To convey the poems of Kazakh writers and poets in an understandable language
 
 [Read the documentation](https://github.com/nuromirzak/aqyndar)·[Report an error](https://github.com/nuromirzak/aqyndar/issues)·[Suggest a change](https://github.com/nuromirzak/aqyndar/issues)
 
@@ -42,7 +42,7 @@ Delivery of poems of Kazakh writers and poets in an understandable language
 2.  [Getting started with the project](#проектке-кірісу)
     -   [Prerequisites](#алғышарттар)
     -   [Installation](#орнату)
-3.  [Contribute](#үлес-қосу)
+3.  [Add a contribution](#үлес-қосу)
 4.  [License](#лицензия)
 5.  [Contacts](#контакттер)
 
@@ -119,7 +119,7 @@ Uses MongoDB.
 
 <!-- CONTRIBUTING -->
 
-## Contribute
+## Add a contribution
 
 Contributing makes the open-source community an amazing place to learn, be inspired, and come up with new ideas. Any
 your contribution**highly appreciated**.
