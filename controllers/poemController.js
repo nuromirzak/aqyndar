@@ -44,6 +44,8 @@ const displayAllPoems = async (req, res, next) => {
         poem.likes = likes;
     }
 
+    poems.sort((a, b) => b.likes - a.likes);
+
     const edit_info = req.flash("edit_info");
 
     const delete_info = req.flash("delete_info");
